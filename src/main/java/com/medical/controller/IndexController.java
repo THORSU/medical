@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class IndexController {
     @RequestMapping("/")
     public ModelAndView getLoginView(ModelAndView view){
-        view.setView(new RedirectView("signUp.html", false));
+        view.setView(new RedirectView("login.html", false));
         return view;
     }
 }

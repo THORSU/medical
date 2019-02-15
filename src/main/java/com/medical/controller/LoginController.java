@@ -22,19 +22,21 @@ public class LoginController {
 
     private User user = new User();
 
-    //注册
+    //用户注册
     @RequestMapping(value = "/SignUp.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object SignUp(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
         String password = request.getParameter("password").trim();
         String password1 = request.getParameter("password1").trim();
+        String mobile = request.getParameter("mobile").trim();
         if (!password1.equals(password)) {
             return "password error";
         } else {
             user.setName(username);
             user.setPassword(password);
             user.setStatus("1");
+            user.setMobile(mobile);
             int res = userService.addUser(user);
             if (res==1){
                 logger.info(res);

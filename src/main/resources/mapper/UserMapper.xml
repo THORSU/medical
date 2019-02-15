@@ -8,8 +8,9 @@
         <result property="name" column="name"/>
         <result property="password" column="password"/>
         <result property="status" column="status"/>
+        <result property="mobile" column="mobile"/>
     </resultMap>
     <insert id="addUser" parameterType="com.medical.pojo.User">
-        insert into `user` (name, password, status) value (#{name},#{password},#{status})
+        insert into `user` (name, password, status,mobile) value (#{name},#{password},#{status},#{mobile})
     </insert>
 </mapper>

@@ -1,5 +1,6 @@
 package com.medical.pojo;
 
+//普通用户
 public class User {
     //id
     private String id;
@@ -7,8 +8,18 @@ public class User {
     private String name;
     //密码
     private String password;
-    //状态
+    //状态（0已删除，1正常）
     private String status;
+    //手机号
+    private String mobile;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     public String getId() {
         return id;

@@ -99,7 +99,7 @@
   <!--</servlet-mapping>-->
   <!-- ############################################ servlet end  ############################################ -->
   <welcome-file-list>
-    <welcome-file>/signUp.html</welcome-file>
+    <welcome-file>/login.html</welcome-file>
   </welcome-file-list>
   <!--by rxl for alipay start-->
   <!--//  <display-name>js_jsp_utf8</display-name>-->

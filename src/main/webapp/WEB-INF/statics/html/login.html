@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+    <link href="../css/login.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<div data-role="page" class="my_login">
+    <div data-role="content" class="ui-content">
+        <form>
+            <table width="202" border="0" align="center" cellpadding="05" cellspacing="0" id="logintable">
+                <tr>
+                    <td width="400">
+                        <div class="message">欢迎使用固定资产管理系统</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="select" id="identify">
+                            <option>教师登录</option>
+                            <option>业务管理员登录</option>
+                            <option>超级管理员登录</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="name" type="text" id="username" value="" placeholder="用户名"></td>
+                </tr>
+                <tr>
+                    <td><input name="psd" type="password" id="password" value="" placeholder="密码"></td>
+                </tr>
+                <tr>
+                    <td id="tip"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" class="submit" value="登录" onclick="Login()" data-inline="true"></td>
+                    <td><input type="button" value="教师注册" class="register" onclick="toRegister()"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="my_footer">
+</div>
+
+<script type="text/javascript">
+    function toRegister() {
+        var identify = $("#identify").find("option:selected").text();
+        if (identify == "教师登录") {
+            window.location = "signUp.html?js";
+        } else if (identify == "业务管理员登录") {
+            window.location.href = "signUp.html?yw";
+        } else if (identify == "超级管理员登录") {
+            window.location.href = "signUp.html?super";
+        }
+    }
+
+    function Login() {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var identify = $("#identify").find("option:selected").text();
+        if (identify == "教师登录") {
+            $.ajax({
+                type: "post",
+                url: "/asset/teacherLogin.form?username=" + username.trim() + "&password=" + password.trim(),
+                dataType: "html",
+                success: function (msg) {
+                    //concole.log(msg);
+                    switch (msg) {
+                        case "login success":
+                            window.location.href = 'index.html';
+                            alert("login success")
+                            break;
+                        case "login failure":
+                            alert("用户名或者密码错误");
+                            break;
+                        case "not register" :
+                            alert("该用户未注册！");
+                            break;
+                        default:
+                            alert("输入有误");
+                    }
+                }
+            })
+        } else if (identify == "业务管理员登录") {
+            $.ajax({
+                type: "post",
+                url: "/asset/senMangerLogin.form?username=" + username.trim() + "&password=" + password.trim(),
+                dataType: "html",
+                success: function (msg) {
+                    switch (msg) {
+                        case "login success":
+                            window.location.href = 'index.html';
+                            alert("login success");
+                            break;
+                        case "login failure":
+                            alert("用户名或者密码错误");
+                            break;
+                        case "not register" :
+                            alert("该用户未注册！");
+                            break;
+                        default:
+                            alert("输入有误");
+                    }
+                }
+            })
+        } else if (identify == "超级管理员登录") {
+            $.ajax({
+                type: "post",
+                url: "/asset/priMangerLogin.form?username=" + username.trim() + "&password=" + password.trim(),
+                dataType: "html",
+                success: function (msg) {
+                    switch (msg) {
+                        case "login success":
+                            window.location.href = 'index.html';
+                            alert("login success");
+                            break;
+                        case "login failure":
+                            alert("用户名或者密码错误");
+                            break;
+                        case "not register" :
+                            alert("该用户未注册！");
+                            break;
+                        default:
+                            alert("输入有误");
+                    }
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

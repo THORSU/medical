@@ -34,12 +34,12 @@
                                id="password1">
                     </div>
                     <br>
-                    <!--<div class="my_re_input">-->
-                    <!--<label for="unit"></label>-->
-                    <!--<input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入单位名"-->
-                    <!--id="unit">-->
-                    <!--</div>-->
-                    <!--<br>-->
+                    <div class="my_re_input">
+                        <label for="mobile"></label>
+                        <input type="text" class="input" maxlength="16" autocomplete="off" placeholder="请输入手机号"
+                               id="mobile">
+                    </div>
+                    <br>
                     <div class="my_re_input my_code">
                         <label for="vcode"></label>
                         <input type="text" id="vcode" class="form-control" placeholder="请输入验证码"
@@ -124,14 +124,14 @@
         console.log(username)
         var password = $("#password").val();
         var password1 = $("#password1").val();
-        var unit = $("#unit").val();
+        var mobile = $("#mobile").val();
         if (flag != true) {
-            if (username == "" || password == "" || unit == "") {
+            if (username == "" || password == "" || mobile == "") {
                 alert("填写不能为空");
             } else {
                 $.ajax({
                     type: "post",
-                    url: "/medical/SignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim(),
+                    url: "/medical/SignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&mobile=" + mobile.trim(),
                     dataType: "html",
                     success: function (msg) {
                         console.log(msg);
