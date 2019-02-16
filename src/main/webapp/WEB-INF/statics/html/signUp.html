@@ -17,8 +17,16 @@
                 <br>
                 <div class="content">
                     <div class="my_re_input">
+                        <label for="identify"></label>
+                        <select class="select" id="identify">
+                            <option>用户注册</option>
+                            <option>医生注册</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="my_re_input">
                         <label for="username"></label>
-                        <input type="text" class="input" maxlength="11"  placeholder="请输入账号"
+                        <input type="text" class="input" maxlength="11" placeholder="请输入账号"
                                id="username">
                     </div>
                     <br>
@@ -125,36 +133,60 @@
         var password = $("#password").val();
         var password1 = $("#password1").val();
         var mobile = $("#mobile").val();
+        var identify = $("#identify").find("option:selected").text();
         if (flag != true) {
             if (username == "" || password == "" || mobile == "") {
                 alert("填写不能为空");
             } else {
-                $.ajax({
-                    type: "post",
-                    url: "/medical/SignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&mobile=" + mobile.trim(),
-                    dataType: "html",
-                    success: function (msg) {
-                        console.log(msg);
-                        switch (msg) {
-                            case "password error":
-                                alert("密码不一致");
-                                break;
-                            // case "search unitId fail":
-                            //     alert("单位名错误");
-                            //     break;
-                            case "SignUp success":
-                                var con;
-                                con = confirm("注册成功，请登录");
-                                if (con == true) {
-                                    window.location.href = 'login.html';
-                                }
-                                break;
-                            case "SignUp fail":
-                                alert("注册失败");
-                                break;
+                if (identify == "用户注册") {
+                    $.ajax({
+                        type: "post",
+                        url: "/medical/userSignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&mobile=" + mobile.trim(),
+                        dataType: "html",
+                        success: function (msg) {
+                            console.log(msg);
+                            switch (msg) {
+                                case "password error":
+                                    alert("密码不一致");
+                                    break;
+                                case "SignUp success":
+                                    var con;
+                                    con = confirm("注册成功，请登录");
+                                    if (con == true) {
+                                        window.location.href = 'login.html';
+                                    }
+                                    break;
+                                case "SignUp fail":
+                                    alert("注册失败");
+                                    break;
+                            }
                         }
-                    }
-                })
+                    })
+                } else if (identify == "医生注册") {
+                    $.ajax({
+                        type: "post",
+                        url: "/medical/doctorSignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&mobile=" + mobile.trim(),
+                        dataType: "html",
+                        success: function (msg) {
+                            console.log(msg);
+                            switch (msg) {
+                                case "password error":
+                                    alert("密码不一致");
+                                    break;
+                                case "SignUp success":
+                                    var con;
+                                    con = confirm("注册成功，请登录");
+                                    if (con == true) {
+                                        window.location.href = 'login.html';
+                                    }
+                                    break;
+                                case "SignUp fail":
+                                    alert("注册失败");
+                                    break;
+                            }
+                        }
+                    })
+                }
             }
         } else {
             alert("验证码错误");

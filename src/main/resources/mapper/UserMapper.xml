@@ -11,6 +11,9 @@
         <result property="mobile" column="mobile"/>
     </resultMap>
     <insert id="addUser" parameterType="com.medical.pojo.User">
-        insert into `user` (name, password, status,mobile) value (#{name},#{password},#{status},#{mobile})
+        insert into `user` (name, password, status, mobile) value (#{name},#{password},#{status},#{mobile})
+    </insert>
+    <insert id="addDoctor" parameterType="com.medical.pojo.Doctor">
+        insert into `doctor` (name, password, status, mobile, photo) value (#{name},#{password},#{status},#{mobile},#{photo})
     </insert>
 </mapper>

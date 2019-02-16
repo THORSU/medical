@@ -90,3 +90,23 @@ input {
   -webkit-border-radius: 5px;
   cursor: pointer;
 }
+
+.select {
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+    width: 220px;
+    padding: 5px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    line-height: 100%;
+    font-weight: normal;
+    font-variant: normal;
+    border: solid 1px #E5E5E5;
+    height: 34px;
+    color: #617798;
+    /*-webkit-appearance: none; !*for chrome*!*/
+}
