@@ -1,5 +1,6 @@
 package com.medical.controller;
 
+import com.medical.pojo.Admin;
 import com.medical.pojo.Doctor;
 import com.medical.pojo.User;
 import com.medical.service.IUserService;
@@ -23,6 +24,7 @@ public class LoginController {
 
     private User user = new User();
     private Doctor doctor = new Doctor();
+    private Admin admin = new Admin();
 
     //用户注册
     @RequestMapping(value = "/userSignUp.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
@@ -40,10 +42,10 @@ public class LoginController {
             user.setStatus("1");
             user.setMobile(mobile);
             int res = userService.addUser(user);
-            if (res==1){
+            if (res == 1) {
                 logger.info(res);
                 return "SignUp success";
-            }else{
+            } else {
                 logger.error(res);
                 return "SignUp fail";
             }
@@ -74,6 +76,99 @@ public class LoginController {
                 logger.error(res);
                 return "SignUp fail";
             }
+        }
+    }
+
+    //用户登录
+    @RequestMapping(value = "/userLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object userLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String password = request.getParameter("password").trim();
+
+        user.setName(username);
+        user.setPassword(password);
+
+        User res = userService.userLogin(user);
+//        System.out.println(res.getPassword());
+        if (res != null) {
+            if (res.getPassword().equals(password)) {
+//                Cookie uname=new Cookie("username",res.getName());
+//                Cookie identify=new Cookie("identify","js");
+//                identify.setPath("/");
+//                uname.setPath("/");
+//                identify.setMaxAge(60*60*24);
+//                uname.setMaxAge(60*60*24);
+//                response.addCookie(uname);
+//                response.addCookie(identify);
+                return "login success";
+            } else {
+                return "login failure";
+            }
+        } else {
+            return "not register";
+        }
+    }
+
+    //医生登录
+    @RequestMapping(value = "/doctorLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object doctorLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String password = request.getParameter("password").trim();
+
+        doctor.setName(username);
+        doctor.setPassword(password);
+
+        Doctor res = userService.doctorLogin(doctor);
+//        System.out.println(res.getPassword());
+        if (res != null) {
+            if (res.getPassword().equals(password)) {
+//                Cookie uname=new Cookie("username",res.getName());
+//                Cookie identify=new Cookie("identify","js");
+//                identify.setPath("/");
+//                uname.setPath("/");
+//                identify.setMaxAge(60*60*24);
+//                uname.setMaxAge(60*60*24);
+//                response.addCookie(uname);
+//                response.addCookie(identify);
+                return "login success";
+            } else {
+                return "login failure";
+            }
+        } else {
+            return "not register";
+        }
+    }
+
+    //管理员登录
+    @RequestMapping(value = "/adminLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object adminLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String password = request.getParameter("password").trim();
+
+        admin.setName(username);
+        admin.setPassword(password);
+
+        Admin res = userService.adminLogin(admin);
+//        System.out.println(res.getPassword());
+        if (res != null) {
+            if (res.getPassword().equals(password)) {
+//                Cookie uname=new Cookie("username",res.getName());
+//                Cookie identify=new Cookie("identify","js");
+//                identify.setPath("/");
+//                uname.setPath("/");
+//                identify.setMaxAge(60*60*24);
+//                uname.setMaxAge(60*60*24);
+//                response.addCookie(uname);
+//                response.addCookie(identify);
+                return "login success";
+            } else {
+                return "login failure";
+            }
+        } else {
+            return "not register";
         }
     }
 }

@@ -36,7 +36,7 @@
                 </tr>
                 <tr>
                     <td><input type="button" class="submit" value="登录" onclick="Login()" data-inline="true"></td>
-                    <td><input type="button" value="教师注册" class="register" onclick="toRegister()"></td>
+                    <td><input type="button" value="注册" class="register" onclick="toRegister()"></td>
                 </tr>
             </table>
         </form>
@@ -47,31 +47,24 @@
 
 <script type="text/javascript">
     function toRegister() {
-        var identify = $("#identify").find("option:selected").text();
-        if (identify == "教师登录") {
-            window.location = "signUp.html?js";
-        } else if (identify == "业务管理员登录") {
-            window.location.href = "signUp.html?yw";
-        } else if (identify == "超级管理员登录") {
-            window.location.href = "signUp.html?super";
-        }
+        window.location = "signUp.html";
     }
 
     function Login() {
         var username = $("#username").val();
         var password = $("#password").val();
         var identify = $("#identify").find("option:selected").text();
-        if (identify == "教师登录") {
+        if (identify == "用户登录") {
             $.ajax({
                 type: "post",
-                url: "/asset/teacherLogin.form?username=" + username.trim() + "&password=" + password.trim(),
+                url: "/medical/userLogin.form?username=" + username.trim() + "&password=" + password.trim(),
                 dataType: "html",
                 success: function (msg) {
                     //concole.log(msg);
                     switch (msg) {
                         case "login success":
-                            window.location.href = 'index.html';
-                            alert("login success")
+                            // window.location.href = 'index.html';
+                            alert("userLogin success")
                             break;
                         case "login failure":
                             alert("用户名或者密码错误");
@@ -84,16 +77,16 @@
                     }
                 }
             })
-        } else if (identify == "业务管理员登录") {
+        } else if (identify == "医生登录") {
             $.ajax({
                 type: "post",
-                url: "/asset/senMangerLogin.form?username=" + username.trim() + "&password=" + password.trim(),
+                url: "/medical/doctorLogin.form?username=" + username.trim() + "&password=" + password.trim(),
                 dataType: "html",
                 success: function (msg) {
                     switch (msg) {
                         case "login success":
-                            window.location.href = 'index.html';
-                            alert("login success");
+                            // window.location.href = 'index.html';
+                            alert("doctorLogin success");
                             break;
                         case "login failure":
                             alert("用户名或者密码错误");
@@ -106,16 +99,16 @@
                     }
                 }
             })
-        } else if (identify == "超级管理员登录") {
+        } else if (identify == "管理员登录") {
             $.ajax({
                 type: "post",
-                url: "/asset/priMangerLogin.form?username=" + username.trim() + "&password=" + password.trim(),
+                url: "/medical/adminLogin.form?username=" + username.trim() + "&password=" + password.trim(),
                 dataType: "html",
                 success: function (msg) {
                     switch (msg) {
                         case "login success":
-                            window.location.href = 'index.html';
-                            alert("login success");
+                            // window.location.href = 'index.html';
+                            alert("adminLogin success");
                             break;
                         case "login failure":
                             alert("用户名或者密码错误");

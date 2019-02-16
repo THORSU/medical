@@ -16,4 +16,13 @@
     <insert id="addDoctor" parameterType="com.medical.pojo.Doctor">
         insert into `doctor` (name, password, status, mobile, photo) value (#{name},#{password},#{status},#{mobile},#{photo})
     </insert>
+    <select id="userLogin" parameterType="com.medical.pojo.User" resultType="com.medical.pojo.User">
+        select * from `user` where name = #{name}
+    </select>
+    <select id="doctorLogin" parameterType="com.medical.pojo.Doctor" resultType="com.medical.pojo.Doctor">
+        select * from `doctor` where name = #{name}
+    </select>
+    <select id="adminLogin" parameterType="com.medical.pojo.Admin" resultType="com.medical.pojo.Admin">
+        select * from `admin` where name = #{name}
+    </select>
 </mapper>
