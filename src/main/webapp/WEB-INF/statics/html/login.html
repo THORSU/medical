@@ -57,10 +57,13 @@
         if (identify == "用户登录") {
             $.ajax({
                 type: "post",
-                url: "/medical/userLogin.form?username=" + username.trim() + "&password=" + password.trim(),
-                dataType: "html",
+                url: "/medical/userLogin.form",
+                data: {
+                    username: username.trim(),
+                    password: password.trim()
+                },
+                dataType: "json",
                 success: function (msg) {
-                    //concole.log(msg);
                     switch (msg) {
                         case "login success":
                             // window.location.href = 'index.html';
@@ -80,8 +83,12 @@
         } else if (identify == "医生登录") {
             $.ajax({
                 type: "post",
-                url: "/medical/doctorLogin.form?username=" + username.trim() + "&password=" + password.trim(),
-                dataType: "html",
+                url: "/medical/doctorLogin.form",
+                data: {
+                    username: username.trim(),
+                    password: password.trim()
+                },
+                dataType: "json",
                 success: function (msg) {
                     switch (msg) {
                         case "login success":
@@ -102,8 +109,12 @@
         } else if (identify == "管理员登录") {
             $.ajax({
                 type: "post",
-                url: "/medical/adminLogin.form?username=" + username.trim() + "&password=" + password.trim(),
-                dataType: "html",
+                url: "/medical/adminLogin.form",
+                data: {
+                    username: username.trim(),
+                    password: password.trim()
+                },
+                dataType: "json",
                 success: function (msg) {
                     switch (msg) {
                         case "login success":

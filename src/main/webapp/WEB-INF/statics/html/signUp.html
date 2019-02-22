@@ -141,10 +141,15 @@
                 if (identify == "用户注册") {
                     $.ajax({
                         type: "post",
-                        url: "/medical/userSignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&mobile=" + mobile.trim(),
-                        dataType: "html",
+                        url: "/medical/userSignUp.form",
+                        data: {
+                            username: username.trim(),
+                            password: password.trim(),
+                            password1: password1.trim(),
+                            mobile: mobile.trim()
+                        },
+                        dataType: "json",
                         success: function (msg) {
-                            console.log(msg);
                             switch (msg) {
                                 case "password error":
                                     alert("密码不一致");
@@ -165,8 +170,14 @@
                 } else if (identify == "医生注册") {
                     $.ajax({
                         type: "post",
-                        url: "/medical/doctorSignUp.form?username=" + username.trim() + "&password=" + password.trim() + "&password1=" + password1.trim() + "&mobile=" + mobile.trim(),
-                        dataType: "html",
+                        url: "/medical/doctorSignUp.form?",
+                        data: {
+                            username: username.trim(),
+                            password: password.trim(),
+                            password1: password1.trim(),
+                            mobile: mobile.trim()
+                        },
+                        dataType: "json",
                         success: function (msg) {
                             console.log(msg);
                             switch (msg) {

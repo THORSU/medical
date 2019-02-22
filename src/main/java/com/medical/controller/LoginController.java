@@ -1,5 +1,6 @@
 package com.medical.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.medical.pojo.Admin;
 import com.medical.pojo.Doctor;
 import com.medical.pojo.User;
@@ -30,12 +31,12 @@ public class LoginController {
     @RequestMapping(value = "/userSignUp.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object userSignUp(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
         String password1 = request.getParameter("password1").trim();
         String mobile = request.getParameter("mobile").trim();
         if (!password1.equals(password)) {
-            return "password error";
+            return JSON.toJSONString("password error");
         } else {
             user.setName(username);
             user.setPassword(password);
@@ -44,10 +45,10 @@ public class LoginController {
             int res = userService.addUser(user);
             if (res == 1) {
                 logger.info(res);
-                return "SignUp success";
+                return JSON.toJSONString("SignUp success");
             } else {
                 logger.error(res);
-                return "SignUp fail";
+                return JSON.toJSONString("SignUp fail");
             }
         }
     }
@@ -56,12 +57,12 @@ public class LoginController {
     @RequestMapping(value = "/doctorSignUp.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object doctorSignUp(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
         String password1 = request.getParameter("password1").trim();
         String mobile = request.getParameter("mobile").trim();
         if (!password1.equals(password)) {
-            return "password error";
+            return JSON.toJSONString("password error");
         } else {
             doctor.setName(username);
             doctor.setPassword(password);
@@ -71,10 +72,10 @@ public class LoginController {
             int res = userService.addDoctor(doctor);
             if (res == 1) {
                 logger.info(res);
-                return "SignUp success";
+                return JSON.toJSONString("SignUp success");
             } else {
                 logger.error(res);
-                return "SignUp fail";
+                return JSON.toJSONString("SignUp fail");
             }
         }
     }
@@ -83,14 +84,13 @@ public class LoginController {
     @RequestMapping(value = "/userLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object userLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
 
         user.setName(username);
         user.setPassword(password);
 
         User res = userService.userLogin(user);
-//        System.out.println(res.getPassword());
         if (res != null) {
             if (res.getPassword().equals(password)) {
 //                Cookie uname=new Cookie("username",res.getName());
@@ -101,12 +101,12 @@ public class LoginController {
 //                uname.setMaxAge(60*60*24);
 //                response.addCookie(uname);
 //                response.addCookie(identify);
-                return "login success";
+                return JSON.toJSONString("login success");
             } else {
-                return "login failure";
+                return JSON.toJSONString("login failure");
             }
         } else {
-            return "not register";
+            return JSON.toJSONString("not register");
         }
     }
 
@@ -114,7 +114,7 @@ public class LoginController {
     @RequestMapping(value = "/doctorLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object doctorLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
 
         doctor.setName(username);
@@ -132,12 +132,12 @@ public class LoginController {
 //                uname.setMaxAge(60*60*24);
 //                response.addCookie(uname);
 //                response.addCookie(identify);
-                return "login success";
+                return JSON.toJSONString("login success");
             } else {
-                return "login failure";
+                return JSON.toJSONString("login failure");
             }
         } else {
-            return "not register";
+            return JSON.toJSONString("not register");
         }
     }
 
@@ -145,7 +145,7 @@ public class LoginController {
     @RequestMapping(value = "/adminLogin.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object adminLogin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        String username = new String(request.getParameter("username").getBytes("iso-8859-1"), "utf-8");
+        String username = request.getParameter("username").trim();
         String password = request.getParameter("password").trim();
 
         admin.setName(username);
@@ -163,12 +163,12 @@ public class LoginController {
 //                uname.setMaxAge(60*60*24);
 //                response.addCookie(uname);
 //                response.addCookie(identify);
-                return "login success";
+                return JSON.toJSONString("login success");
             } else {
-                return "login failure";
+                return JSON.toJSONString("login failure");
             }
         } else {
-            return "not register";
+            return JSON.toJSONString("not register");
         }
     }
 }
