@@ -40,3 +40,19 @@ CREATE TABLE `admin`
 )
   AUTO_INCREMENT = 1,
   ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `note`;
+CREATE TABLE `note`
+(
+  `note_id`             varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `id`                  varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `release_time`        varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL,
+  `note_type`           varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL,
+  `note_content`        varchar(20000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note_likes`          varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL,
+  `note_comment_counts` varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL,
+  PRIMARY KEY (`id`, `note_id`)
+) ENGINE = MyISAM
+  AUTO_INCREMENT = 2
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;

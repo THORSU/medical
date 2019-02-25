@@ -1,6 +1,12 @@
 package com.medical.pojo;
 
-public class Doctor {
+import lombok.Data;
+
+import java.io.Serializable;
+
+//医生
+@Data
+public class Doctor implements Serializable {
     //id
     private String id;
     //姓名
@@ -13,52 +19,4 @@ public class Doctor {
     private String mobile;
     //执业医师证
     private String photo;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 }
