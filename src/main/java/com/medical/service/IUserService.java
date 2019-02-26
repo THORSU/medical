@@ -26,4 +26,10 @@ public interface IUserService {
 
     //根据医生的id获取发起人的姓名
     Doctor getDoctorById(String doctorId);
+
+    //根据用户名获得用户详细信息
+    User getUserByName(String name);
+
+    //根据医生名获得医生详细信息
+    Doctor getDoctorByName(String name);
 }

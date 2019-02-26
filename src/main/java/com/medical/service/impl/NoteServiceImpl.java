@@ -33,4 +33,9 @@ public class NoteServiceImpl implements INoteService {
     public List<Note_Comment> getNoteCommentsByNote_id(String note_id) {
         return noteMapper.getNoteCommentsByNote_id(note_id);
     }
+
+    @Override
+    public int saveComment(Note_Comment note_comment) {
+        return noteMapper.saveComment(note_comment);
+    }
 }

@@ -31,4 +31,10 @@
     <select id="getDoctorById" resultType="com.medical.pojo.Doctor">
         select * from `doctor` where id = #{doctorId}
     </select>
+    <select id="getUserByName" resultType="com.medical.pojo.User">
+        select * from `user` where name = #{name}
+    </select>
+    <select id="getDoctorByName" resultType="com.medical.pojo.Doctor">
+        select * from `doctor` where name = #{name}
+    </select>
 </mapper>

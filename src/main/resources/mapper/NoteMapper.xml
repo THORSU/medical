@@ -36,4 +36,8 @@
     <select id="getNoteCommentsByNote_id" resultType="com.medical.pojo.Note_Comment">
         select * from note_comment where note_id=#{note_id}
     </select>
+    <insert id="saveComment" parameterType="com.medical.pojo.Note_Comment">
+        insert into note_comment (note_comment_id, note_id,id, note_comment_content,note_comment_release_time)
+        values(#{note_comment_id},#{note_id},#{id},#{note_comment_content},#{note_comment_release_time});
+    </insert>
 </mapper>

@@ -1,10 +1,13 @@
 package com.medical.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.medical.pojo.Doctor;
 import com.medical.pojo.Note;
 import com.medical.pojo.Note_Comment;
+import com.medical.pojo.User;
 import com.medical.service.INoteService;
 import com.medical.service.IUserService;
+import com.medical.utils.GenerateSequenceUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,12 +40,19 @@ public class NoteController {
         Cookie[] cookies = request.getCookies();
         String note_type = "";
         String topic_list = "";
+        String identify = "";
         if (cookies != null) {
             for (Cookie c : cookies) {
                 if (c.getName().trim().equals("note_type")) {
                     try {
 //                        获取帖子类型
                         note_type = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("转码失败！");
+                    }
+                } else if (c.getName().trim().equals("identify")) {
+                    try {
+                        identify = URLDecoder.decode(c.getValue().trim(), "UTF-8");
                     } catch (UnsupportedEncodingException e) {
                         logger.error("转码失败！");
                     }
@@ -69,9 +79,9 @@ public class NoteController {
             String note_comment_counts = note.getNote_comment_counts();
             //获取发起人姓名
             String name = "";
-            if (!StringUtils.isEmpty(userService.getUserById(id))) {
+            if (identify.equals("user")) {
                 name = userService.getUserById(id).getName();
-            } else if (!StringUtils.isEmpty(userService.getDoctorById(id))) {
+            } else if (identify.equals("doctor")) {
                 name = userService.getDoctorById(id).getName();
             }
             topic_list += " <li class=\"topic-li\">\n" +
@@ -182,6 +192,61 @@ public class NoteController {
             }
         } catch (Exception e) {
             return "101";//TODO 网络异常
+        }
+    }
+
+    //TODO 发表评论
+    @RequestMapping(value = "/releaseComment.from", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public
+    @ResponseBody
+    Object releaseComment(HttpServletRequest request, HttpServletResponse response) {
+        String note_comment_content = request.getParameter("note_comment_content").trim();
+        String note_id = request.getParameter("note_id").trim();
+        String release_time = request.getParameter("note_comment_release_time").trim();
+        Cookie[] cookies1 = request.getCookies();
+        String nickname1 = "";
+        String identify = "";
+        if (cookies1 != null) {
+            for (Cookie c : cookies1) {
+                if (c.getName().trim().equals("username")) {
+                    try {
+                        nickname1 = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("转码失败！");
+                    }
+                } else if (c.getName().trim().equals("identify")) {
+                    try {
+                        identify = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("转码失败！");
+                    }
+                }
+            }
+        }
+        if (nickname1.equals("")) {
+            return "102";//TODO 会话失效
+        } else {
+            try {
+                Note n = noteService.getNoteById(note_id);
+                Note_Comment nc = new Note_Comment();
+                nc.setNote_comment_id("nc" + GenerateSequenceUtil.generateSequenceNo());
+                nc.setNote_id(note_id);
+                nc.setNote_comment_release_time(release_time);
+                nc.setNote_comment_content(note_comment_content);
+                if (identify.equals("user")) {
+                    User user = userService.getUserByName(nickname1);
+                    nc.setId(user.getId());
+                } else if (identify.equals("doctor")) {
+                    Doctor doctor = userService.getDoctorByName(nickname1);
+                    nc.setId(doctor.getId());
+                }
+                noteService.saveComment(nc);
+                n.setNote_comment_counts(String.valueOf(Integer.parseInt(n.getNote_comment_counts()) + 1));
+                noteService.updateNote(n);
+                return "success";
+            } catch (Exception e) {
+                return "fail";
+            }
         }
     }
 }

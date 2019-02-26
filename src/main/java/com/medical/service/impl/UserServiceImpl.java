@@ -46,4 +46,14 @@ public class UserServiceImpl implements IUserService {
     public Doctor getDoctorById(String doctorId) {
         return userMapper.getDoctorById(doctorId);
     }
+
+    @Override
+    public User getUserByName(String name) {
+        return userMapper.getUserByName(name);
+    }
+
+    @Override
+    public Doctor getDoctorByName(String name) {
+        return userMapper.getDoctorByName(name);
+    }
 }
