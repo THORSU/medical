@@ -21,4 +21,7 @@ public interface NoteMapper {
 
     //插入评论
     int saveComment(Note_Comment note_comment);
+
+    // 发布文章
+    int saveNote(Note note);
 }

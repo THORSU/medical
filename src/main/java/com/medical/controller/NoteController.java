@@ -195,7 +195,7 @@ public class NoteController {
         }
     }
 
-    //TODO 发表评论
+    // 发表评论
     @RequestMapping(value = "/releaseComment.from", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public
     @ResponseBody
@@ -223,7 +223,7 @@ public class NoteController {
                 }
             }
         }
-        if (nickname1.equals("")) {
+        if (nickname1.equals("") && identify.equals("")) {
             return "102";//TODO 会话失效
         } else {
             try {
@@ -247,6 +247,72 @@ public class NoteController {
             } catch (Exception e) {
                 return "fail";
             }
+        }
+    }
+
+    // 发表帖子
+    @RequestMapping(value = "/ReleaseNote.from", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public
+    @ResponseBody
+    Object ReleaseNote(HttpServletRequest request, HttpServletResponse response) {
+        String note_type = request.getParameter("note_type").trim();
+        logger.info("ReleaseNoteServlet-----" + note_type + "\n");
+        String release_time = request.getParameter("release_time").trim();
+        logger.info("ReleaseNoteServlet-----" + release_time + "\n");
+        String note_content = request.getParameter("note_content").trim();
+        logger.info("ReleaseNoteServlet-----" + note_content + "\n");
+        Cookie[] cookies1 = request.getCookies();
+        String nickname1 = "";
+        String identify = "";
+        if (cookies1 != null) {
+            for (Cookie c : cookies1) {
+                if (c.getName().trim().equals("username")) {
+                    try {
+                        nickname1 = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("转码失败！");
+                    }
+                } else if (c.getName().trim().equals("identify")) {
+                    try {
+                        identify = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("转码失败！");
+                    }
+                }
+            }
+            if (nickname1.equals("") && identify.equals("")) {
+                return "102";//TODO 会话失效
+            } else {
+                User user = new User();
+                Doctor doctor = new Doctor();
+                String id = "";
+                if (identify.equals("user")) {
+                    user = userService.getUserByName(nickname1);
+                    id = user.getId();
+                    logger.info("用户id" + id);
+                } else if (identify.equals("doctor")) {
+                    doctor = userService.getDoctorByName(nickname1);
+                    id = doctor.getId();
+                    logger.info("用户id" + id);
+                }
+                if (id == "") {
+                    return "103";//TODO 网络异常
+                } else {
+                    Note nt = new Note();
+                    nt.setNote_id("note" + GenerateSequenceUtil.generateSequenceNo());
+                    nt.setId(id);
+                    nt.setRelease_time(release_time);
+                    nt.setNote_type(note_type);
+                    nt.setNote_comment_counts("0");
+                    nt.setNote_likes("0");
+                    nt.setNote_content(note_content);
+                    noteService.saveNote(nt);
+                    logger.info("帖子基本信息插入成功！");
+                    return "1";//TODO 帖子发布成功
+                }
+            }
+        } else {
+            return "102";//TODO 会话失效
         }
     }
 }

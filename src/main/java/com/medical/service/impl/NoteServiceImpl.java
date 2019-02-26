@@ -38,4 +38,9 @@ public class NoteServiceImpl implements INoteService {
     public int saveComment(Note_Comment note_comment) {
         return noteMapper.saveComment(note_comment);
     }
+
+    @Override
+    public int saveNote(Note note) {
+        return noteMapper.saveNote(note);
+    }
 }
