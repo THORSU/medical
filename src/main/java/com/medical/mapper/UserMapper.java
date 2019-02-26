@@ -3,6 +3,7 @@ package com.medical.mapper;
 import com.medical.pojo.Admin;
 import com.medical.pojo.Doctor;
 import com.medical.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     //注册
@@ -19,4 +20,10 @@ public interface UserMapper {
 
     //管理员登录
     Admin adminLogin(Admin admin);
+
+    //根据用户的id获取发起人的姓名
+    User getUserById(@Param("userId") String userId);
+
+    //根据医生的id获取发起人的姓名
+    Doctor getDoctorById(@Param("doctorId") String doctorId);
 }

@@ -17,6 +17,6 @@ public class Doctor implements Serializable {
     private String status;
     //手机号
     private String mobile;
-    //执业医师证
+    //执业医师证照片
     private String photo;
 }

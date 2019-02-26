@@ -36,4 +36,14 @@ public class UserServiceImpl implements IUserService {
     public Admin adminLogin(Admin admin) {
         return userMapper.adminLogin(admin);
     }
+
+    @Override
+    public User getUserById(String userId) {
+        return userMapper.getUserById(userId);
+    }
+
+    @Override
+    public Doctor getDoctorById(String doctorId) {
+        return userMapper.getDoctorById(doctorId);
+    }
 }

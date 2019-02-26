@@ -7,18 +7,18 @@ import java.io.Serializable;
 //帖子
 @Data
 public class Note implements Serializable {
-    //贴子id
+    //文章id
     private String note_id;
     //用户id
     private String id;
     //发布时间
     private String release_time;
-    //帖子类型
+    //文章类型
     private String note_type;
-    //帖子内容
+    //文章内容
     private String note_content;
     //点赞数
     private String note_likes;
-
+    //评论数
     private String note_comment_counts;
 }

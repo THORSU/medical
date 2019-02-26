@@ -57,7 +57,7 @@
         if (identify == "用户登录") {
             $.ajax({
                 type: "post",
-                url: "/medical/userLogin.form",
+                url: "/medical/login/userLogin.form",
                 data: {
                     username: username.trim(),
                     password: password.trim()
@@ -83,7 +83,7 @@
         } else if (identify == "医生登录") {
             $.ajax({
                 type: "post",
-                url: "/medical/doctorLogin.form",
+                url: "/medical/login/doctorLogin.form",
                 data: {
                     username: username.trim(),
                     password: password.trim()
@@ -109,7 +109,7 @@
         } else if (identify == "管理员登录") {
             $.ajax({
                 type: "post",
-                url: "/medical/adminLogin.form",
+                url: "/medical/login/adminLogin.form",
                 data: {
                     username: username.trim(),
                     password: password.trim()

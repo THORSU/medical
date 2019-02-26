@@ -5,6 +5,7 @@ import com.medical.pojo.Admin;
 import com.medical.pojo.Doctor;
 import com.medical.pojo.User;
 import com.medical.service.IUserService;
+import com.medical.utils.GenerateSequenceUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 
 @Controller
-@RequestMapping("/medical")
+@RequestMapping("/medical/login")
 public class LoginController {
     private static Logger logger = Logger.getLogger(LoginController.class);
     @Autowired
@@ -38,6 +40,7 @@ public class LoginController {
         if (!password1.equals(password)) {
             return JSON.toJSONString("password error");
         } else {
+            user.setId("user" + GenerateSequenceUtil.generateSequenceNo());
             user.setName(username);
             user.setPassword(password);
             user.setStatus("1");
@@ -64,6 +67,7 @@ public class LoginController {
         if (!password1.equals(password)) {
             return JSON.toJSONString("password error");
         } else {
+            doctor.setId("doctor" + GenerateSequenceUtil.generateSequenceNo());
             doctor.setName(username);
             doctor.setPassword(password);
             doctor.setStatus("1");
@@ -93,14 +97,14 @@ public class LoginController {
         User res = userService.userLogin(user);
         if (res != null) {
             if (res.getPassword().equals(password)) {
-//                Cookie uname=new Cookie("username",res.getName());
-//                Cookie identify=new Cookie("identify","js");
-//                identify.setPath("/");
-//                uname.setPath("/");
-//                identify.setMaxAge(60*60*24);
-//                uname.setMaxAge(60*60*24);
-//                response.addCookie(uname);
-//                response.addCookie(identify);
+                Cookie uname = new Cookie("username", res.getName());
+                Cookie identify = new Cookie("identify", "user");
+                identify.setPath("/");
+                uname.setPath("/");
+                identify.setMaxAge(60 * 60 * 24);
+                uname.setMaxAge(60 * 60 * 24);
+                response.addCookie(uname);
+                response.addCookie(identify);
                 return JSON.toJSONString("login success");
             } else {
                 return JSON.toJSONString("login failure");
@@ -124,14 +128,14 @@ public class LoginController {
 //        System.out.println(res.getPassword());
         if (res != null) {
             if (res.getPassword().equals(password)) {
-//                Cookie uname=new Cookie("username",res.getName());
-//                Cookie identify=new Cookie("identify","js");
-//                identify.setPath("/");
-//                uname.setPath("/");
-//                identify.setMaxAge(60*60*24);
-//                uname.setMaxAge(60*60*24);
-//                response.addCookie(uname);
-//                response.addCookie(identify);
+                Cookie uname = new Cookie("username", res.getName());
+                Cookie identify = new Cookie("identify", "doctor");
+                identify.setPath("/");
+                uname.setPath("/");
+                identify.setMaxAge(60 * 60 * 24);
+                uname.setMaxAge(60 * 60 * 24);
+                response.addCookie(uname);
+                response.addCookie(identify);
                 return JSON.toJSONString("login success");
             } else {
                 return JSON.toJSONString("login failure");
@@ -155,14 +159,14 @@ public class LoginController {
 //        System.out.println(res.getPassword());
         if (res != null) {
             if (res.getPassword().equals(password)) {
-//                Cookie uname=new Cookie("username",res.getName());
-//                Cookie identify=new Cookie("identify","js");
-//                identify.setPath("/");
-//                uname.setPath("/");
-//                identify.setMaxAge(60*60*24);
-//                uname.setMaxAge(60*60*24);
-//                response.addCookie(uname);
-//                response.addCookie(identify);
+                Cookie uname = new Cookie("username", res.getName());
+                Cookie identify = new Cookie("identify", "admin");
+                identify.setPath("/");
+                uname.setPath("/");
+                identify.setMaxAge(60 * 60 * 24);
+                uname.setMaxAge(60 * 60 * 24);
+                response.addCookie(uname);
+                response.addCookie(identify);
                 return JSON.toJSONString("login success");
             } else {
                 return JSON.toJSONString("login failure");

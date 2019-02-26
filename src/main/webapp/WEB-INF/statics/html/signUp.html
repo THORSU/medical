@@ -141,7 +141,7 @@
                 if (identify == "用户注册") {
                     $.ajax({
                         type: "post",
-                        url: "/medical/userSignUp.form",
+                        url: "/medical/login/userSignUp.form",
                         data: {
                             username: username.trim(),
                             password: password.trim(),
@@ -170,7 +170,7 @@
                 } else if (identify == "医生注册") {
                     $.ajax({
                         type: "post",
-                        url: "/medical/doctorSignUp.form?",
+                        url: "/medical/login/doctorSignUp.form?",
                         data: {
                             username: username.trim(),
                             password: password.trim(),

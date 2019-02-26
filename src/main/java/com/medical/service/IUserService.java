@@ -20,4 +20,10 @@ public interface IUserService {
 
     //管理员登录
     Admin adminLogin(Admin admin);
+
+    //根据用户的id获取发起人的姓名
+    User getUserById(String userId);
+
+    //根据医生的id获取发起人的姓名
+    Doctor getDoctorById(String doctorId);
 }
