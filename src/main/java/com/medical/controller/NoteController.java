@@ -141,10 +141,9 @@ public class NoteController {
             Note n = noteService.getNoteById(note_id);
             n.setNote_likes(note_likes);
             noteService.updateNote(n);
-            logger.info("---点赞更新成功");
-            return JSON.toJSONString("like success");
+            return JSON.toJSONString(1);
         } catch (Exception e) {
-            return JSON.toJSONString("like fail");
+            return "0";
         }
     }
 

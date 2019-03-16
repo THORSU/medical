@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
     <meta name="description" content="">
     <link rel="stylesheet" type="text/css" href="../css/slick.css"/>
     <link rel="stylesheet" type="text/css" href="../css/base.css"/>
@@ -14,7 +14,7 @@
     <script>
         document.write('<div id="bigLoadingHolder" style="position:absolute;top:0;z-index:2;background:#fff;height:100%;width:100%"><div id="loadingDiv" style="background:rgba(0,0,0,0.8);border-radius:5px;position:absolute;top:50%;left:50%;margin:-15px 0 0 -40px;width:80px;line-height:30px;font-size:14px;height:30px;text-align:center;color:#f1f1f1">正在加载</div></div>');
     </script>
-    <title>课下</title>
+    <title>动态</title>
 <body>
 <div class="header">
     <span id="title">星座</span>
@@ -24,47 +24,6 @@
 <!--背景层-->
 <div id="wrap">
     <ul id="list" class="clearfix">
-        <!--<li class="topic-li">-->
-        <!--<div class="main">-->
-        <!--<div class="user title clearfix">-->
-        <!--<img class="user-icon float-left-box" src="http://qiniu.myfriday.cn/3_1200130_12871928_1484277857083.jpg">-->
-
-        <!--<div class="title">-->
-        <!--<p class="name">、折戟沉沙</p>-->
-
-        <!--<p class="relate"><span class="time">01-24 12:25</span><span class="from">来自[信息技术工程学院]</span></p>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="content">农历新年将至，在这一年里你看了几部电影，哪部给你留下深刻印象呢？而随着新年的临近，各类贺岁大片即将霸占各大荧幕，你最期待哪部贺岁大片呢？在这一年里的最后几天，让我们把所有不开心都抛到脑后，忘却所有的烦恼，尽情的享受快乐时光吧！<img src="statics/img/expression/bb_18.png" width="24px" height="24px"><img src="statics/img/expression/bb_18.png" width="24px" height="24px"></div>-->
-
-        <!--<div class="img-div clearfix">-->
-
-        <!--<div class="multi-pic clearfix"> <a class="amplifyImg"><img src="http://qiniu.myfriday.cn/2_1200130_12871928_1485223240683.jpg" class=""></a> <a class="amplifyImg"><img src="http://qiniu.myfriday.cn/2_1200130_12871928_1485223243217.jpg" class=""></a> <a class="amplifyImg"><img src="http://qiniu.myfriday.cn/2_1200130_12871928_1485223248978.jpg" class=""></a> <a class="amplifyImg"><img src="http://qiniu.myfriday.cn/2_1200130_12871928_1485223274595.jpg" class=""></a> <a class="amplifyImg"><img src="http://qiniu.myfriday.cn/2_1200130_12871928_1485223277535.jpg" class=""></a> <a class="amplifyImg"><img src="http://qiniu.myfriday.cn/2_1200130_12871928_1485223275967.jpg" class=""></a></div>-->
-
-        <!--</div>-->
-
-        <!--<div class="read display-none">阅读<span class="num">1393</span></div>-->
-
-        <!--</div>-->
-        <!--<ul class="btns clearfix">-->
-
-        <!--<li id="ccc" class="like like-btn" onclick="like(this.id)">-->
-        <!--<span class="icon"></span>-->
-
-        <!--<p class="like-box"><span class="txt">26</span></p>-->
-
-        <!--<div class="icon-like-box"></div>-->
-        <!--</li>-->
-
-        <!--<li id="ddd" class="comment" onclick="comment(this.id)">-->
-        <!--<span class="icon"></span>-->
-
-        <!--<p>12</p>-->
-        <!--</li>-->
-        <!--</ul>-->
-
-        <!--</li>-->
     </ul>
 </div>
 <div class="create-message-btn-wrap">
@@ -85,9 +44,11 @@
         likes++;
         $.ajax({
             type: "POST",
-            url: "/tutetube/UpdateLikes.from?note_id=" + v + "&note_likes=" + likes + "",
+            url: "/medical/note/UpdateLikes.from?note_id=" + v + "&note_likes=" + likes + "",
             dataType: "html",
+
             success: function (msg) {
+                alert(msg)
                 if (msg == "1") {
                     console.log("成功点赞！");
                     $("#" + v + " >p >span").html(likes);
@@ -177,7 +138,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "POST",
-            url: "/tutetube/getNoteType.from",
+            url: "/medical/cookie/getNoteType.form",
             dataType: "html",
             success: function (msg) {
                 if (msg == "0") {
@@ -189,7 +150,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/tutetube/getPublicNote.from",
+                        url: "/medical/note/getPublicNote.from",
                         dataType: "html",
                         async: false,
                         success: function (msg) {

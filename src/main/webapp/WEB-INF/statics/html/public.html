@@ -193,7 +193,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "POST",
-            url: "/tutetube/checkCookie.from",
+            url: "/medical/cookie/checkCookie.form",
             dataType: "html",
             success: function (msg) {
                 if (msg == "0") {
@@ -213,7 +213,7 @@
         $.ajax({
             type: "POST",
             // url: "/tutetube/selectnote.from?note_type="+note_type.trim()+"",
-            url: "/tutetube/selectnote.from",
+            url: "/medical/cookie/selectnote.form",
             data: {note_type: note_type.trim()},
             dataType: "json",
             success: function (msg) {

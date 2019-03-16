@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.medical.mapper.NoteMapper">
     <resultMap id="noteResult" type="com.medical.pojo.Note">
+        <result property="note_id" column="note_id"/>
         <result property="id" column="id"/>
         <result property="release_time" column="release_time"/>
         <result property="note_type" column="note_type"/>
@@ -14,8 +15,8 @@
     <select id="getNoteByType" resultMap="noteResult">
         select note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts from note where note_type=#{note_type}
     </select>
-    <select id="getNoteById" resultType="com.medical.pojo.Note">
-        select * from `note` where id = #{note_id}
+    <select id="getNoteById" resultMap="noteResult">
+        select * from `note` where note_id = #{note_id}
     </select>
 
     <!--更新文章-->
@@ -31,19 +32,4 @@
         </trim>
         WHERE note_id=#{note_id}
     </update>
-
-    <!--通过note_id获取评论-->
-    <select id="getNoteCommentsByNote_id" resultType="com.medical.pojo.Note_Comment">
-        select * from note_comment where note_id=#{note_id}
-    </select>
-    <!--添加评论-->
-    <insert id="saveComment" parameterType="com.medical.pojo.Note_Comment">
-        insert into note_comment (note_comment_id, note_id,id, note_comment_content,note_comment_release_time)
-        values(#{note_comment_id},#{note_id},#{id},#{note_comment_content},#{note_comment_release_time});
-    </insert>
-    <!--添加文章-->
-    <insert id="saveNote" parameterType="com.medical.pojo.Note">
-        insert into note (note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts)
-        values(#{note_id},#{id},#{release_time},#{note_type},#{note_content},#{note_likes},#{note_comment_counts});
-    </insert>
 </mapper>

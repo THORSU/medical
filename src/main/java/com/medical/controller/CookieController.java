@@ -60,6 +60,40 @@ public class CookieController {
         }
     }
 
+    /**
+     * 验证cookie有效性
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/checkCookie.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public
+    @ResponseBody
+    Object checkCookie(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        String username = "";
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().trim().equals("username")) {
+                    try {
+                        username = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("-----转码失败！");
+                    }
+                }
+            }
+            if (username.equals("")) {
+                logger.error("---cookie失效！");
+                return "0";
+            } else {
+                return "1";
+            }
+        } else {
+            logger.error("---cookie失效！");
+            return "0";
+        }
+    }
 
     /**
      * 添加note_type cookie
