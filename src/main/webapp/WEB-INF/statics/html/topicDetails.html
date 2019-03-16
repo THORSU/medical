@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="../css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/topic.css?v=3.00"/>
+    <link rel="stylesheet" type="text/css" href="../css/SchoolTopic.css"/>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <style type="text/css">
+        a, button, div, input, select, textarea {
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .comment-time {
+            color: #939393;
+            font-size: 1px;
+            margin-bottom: .25rem;
+        }
+
+        .m-box {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            /* display: flex; */
+            position: relative;
+            width: 100%;
+            height: 3em;
+        }
+
+        .comment-item {
+            background-color: #fcfcfc;
+            border-top-width: 1px;
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            border-color: #e0e0e0;
+            border-style: solid;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .comment-user-name {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.43;
+            word-break: break-word;
+        }
+
+        .comment-user-img {
+            width: 2.4375rem;
+            height: 2.4375rem;
+            margin: 0 .75rem;
+        }
+
+        .comment-user-img a {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .m-avatar-box .m-img-box {
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .a-comment {
+            font-size: 15px;
+            position: relative;
+            right: 3.4em;
+            width: 100%;
+        }
+
+        .m-img-box {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .comment-user-img a img {
+            width: 50%;
+            height: 50%;
+        }
+
+        .m-avatar-box .m-img-box img {
+            border-radius: 50%;
+        }
+
+        .comment-con-bot {
+            padding-left: 3.9375rem;
+            padding-right: .75rem;
+        }
+
+        .comment-con-bot .comment-con {
+            text-align: justify;
+        }
+
+        .comment-con {
+            font-size: 1rem;
+            color: #636363;
+            line-height: 1.375;
+            word-break: break-word;
+        }
+
+        .m-box-col {
+            position: relative;
+            right: 52px;
+        }
+
+        .up .uh, .up .uf, .pos_re {
+            position: relative;
+        }
+
+        .bc-bg {
+            background-color: #FFFFFF;
+        }
+
+        .uh, .uf {
+            display: block;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .uinput input {
+            margin: 0px;
+            border: 0px;
+            width: 100%;
+            height: 100%;
+            -webkit-appearance: none;
+            padding: .5em 0;
+            line-height: 1.5em;
+            background: none;
+            text-decoration: none;
+            font-size: 1.0625em;
+            display: table-row;
+        }
+
+        .uinput input, .uinput textarea {
+            margin: 0px;
+            border: 0px;
+            width: 100%;
+            height: 100%;
+            -webkit-appearance: none;
+            padding: .4em 0;
+            line-height: 1.2em;
+            background: none;
+            text-decoration: none;
+            font-size: 1em;
+            display: block;
+        }
+
+        .bc-text-head {
+            color: white;
+        }
+
+        .bc-head {
+            background-color: rgba(234, 86, 137, 0.74);
+        }
+
+        .umar-r {
+            margin-right: 0.4em;
+        }
+
+        .umar-l {
+            margin-left: 0.4em;
+        }
+
+        .uc-a {
+            -webkit-border-radius: .6em;
+            border-radius: .6em;
+        }
+
+        .ub {
+            display: -webkit-box !important;
+            display: box !important;
+            position: relative;
+        }
+
+        .ub-ac {
+            -webkit-box-align: center;
+            box-align: center;
+        }
+
+        .uh, .uf {
+            display: block;
+            width: 100%;
+            font-size: 1em;
+        }
+    </style>
+    <script>
+        document.write('<div id="bigLoadingHolder" style="position:absolute;top:0;z-index:2;background:#fff;height:100%;width:100%"><div id="loadingDiv" style="background:rgba(0,0,0,0.8);border-radius:5px;position:absolute;top:50%;left:50%;margin:-15px 0 0 -40px;width:80px;line-height:30px;font-size:14px;height:30px;text-align:center;color:#f1f1f1">正在加载</div></div>');
+    </script>
+    <title>帖子详情</title>
+<body>
+<div class="header">
+    <span id="title">星座</span>
+    <a href="topic.html" class="back"><i class="iconfont icon-left"></i></a>
+</div>
+<div class="over"></div>
+<!--背景层-->
+<div id="wrap">
+    <ul id="list" class="clearfix">
+        <li class="topic-li">
+            <div class="main">
+                <div class="user title clearfix">
+                    <img class="user-icon float-left-box"
+                         src="http://qiniu.myfriday.cn/3_1200130_12871928_1484277857083.jpg" id="headicon">
+
+                    <div class="title">
+                        <p class="name" id="name"></p>
+
+                        <p class="relate"><span class="time" id="releaseTime"></span><span class="from" id="college">来自[信息技术工程学院]</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content" id="contentValue"></div>
+
+                <div class="img-div clearfix">
+
+                    <div class="multi-pic clearfix" id="images-box"></div>
+
+                </div>
+
+                <div class="read display-none">阅读<span class="num">1393</span></div>
+
+            </div>
+            <ul class="btns clearfix">
+
+                <li class="like like-btn" onclick="like(this.id)">
+                    <span class="icon"></span>
+
+                    <p class="like-box"><span class="txt" id="likes">0</span></p>
+
+                    <div class="icon-like-box"></div>
+                </li>
+
+                <li class="comment">
+                    <span class="icon"></span>
+
+                    <p id="comments"></p>
+                </li>
+            </ul>
+
+        </li>
+    </ul>
+</div>
+<div id="commentBox" style="overflow: scroll;position: relative;width: 100%;height: 13em;">
+    <!--<div   class="comment-item">-->
+    <!--<div class="m-box comment-con-top">-->
+    <!--<div  class="comment-user-img m-avatar-box">-->
+    <!--<a  class="m-img-box"><img  src="./img/icon1.png" alt="">-->
+    <!--</a></div>-->
+    <!--<div  class="m-box-col">-->
+    <!--<p  class="comment-user-name">-->
+    <!--<span >op寻觅</span>-->
+    <!--</p>-->
+    <!--<p  class="comment-time">-->
+    <!--<span>2分钟前</span>-->
+    <!--</p></div>-->
+    <!--</div>-->
+    <!--<div  class="comment-con-bot"><div class="comment-con">-->
+    <!--<div  class="a-comment">这下厉害了。同班的估计都是祁同伟级人物-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+</div>
+<div id="footer " class="uf ub ub-ac bc-bg"
+     style="position:absolute;bottom:0px;left:0px;height:3.5em;border-top:3px solid #EEEEEE">
+    <div class="ub-f1 umar-l ">
+        <form class="uinput ub ub-f1">
+            <input placeholder="请在此处填写您的评论" type="text" contenteditable="true" autocomplete="off" id="comment_content">
+        </form>
+    </div>
+    <input type="button" value="提交" class="ub ub-ac bc-head ub-pc uc-a umar-r umar-l bc-text-head"
+           style="position:relative;height:3em;width:5em;margin-left: 29%;" onclick="inputComment()"/>
+
+</div>
+<!--<div class="create-message-btn-wrap">-->
+<!--<a id="create-message-btn" href="ReleaseNote.html"></a>-->
+<!--</div>-->
+<script type="text/javascript" src="../js/basic.js"></script>
+<script type="text/javascript" src="../js/rem.js"></script>
+<script type="text/javascript" src="../js/topic.js"></script>
+<script type="text/javascript" src="../js/jqthumb.min.js"></script>
+<script type="text/javascript">
+    function inputComment() {
+        var note_id = location.href.split("?")[1].trim();
+        var comment = $("#comment_content").val();
+
+        function p(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var myDate = new Date();
+        //获取当前年
+        var year = myDate.getFullYear();
+        //获取当前月
+        var month = myDate.getMonth() + 1;
+        //获取当前日
+        var date = myDate.getDate();
+        var h = myDate.getHours();       //获取当前小时数(0-23)
+        var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+        var s = myDate.getSeconds();
+        var now = p(month) + "-" + p(date) + " " + p(h) + ':' + p(m) + " [" + year + "]";
+        $.ajax({
+            type: "POST",
+            url: "/tutetube/releaseComment.from?note_comment_content=" + comment.trim() + "&note_id=" + note_id.trim() + "&note_comment_release_time=" + now + "",
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "1") {
+                    window.location.reload();
+                } else if (msg == "102") {
+                    alert("会话失效，请重新登录！");
+                    window.location.href = "login.html";
+                } else if (msg == "0") {
+                    alert("网络异常！");
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    function like(v) {
+        var note_id = v;
+        var likes = $("#" + v + " >p >span").html();
+        likes++;
+        $.ajax({
+            type: "POST",
+            url: "/tutetube/UpdateLikes.from?note_id=" + v + "&note_likes=" + likes + "",
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "1") {
+                    console.log("成功点赞！");
+                    $("#" + v + " >p >span").html(likes);
+                } else {
+                    console.log("网络异常！");
+                }
+            }
+        })
+    }
+
+    //点击放大图片
+    var imgsObj = $('.amplifyImg');
+
+    function flushImages(v) {
+        imgsObj = v;
+        if (imgsObj) {
+            $.each(imgsObj, function () {
+                $(this).click(function () {
+                    var currImg = $(this).find("img").get(0);
+                    coverLayer(1);
+                    var tempContainer = $('<div class=tempContainer></div>');//图片容器
+                    with (tempContainer) {//width方法等同于$(this)
+                        appendTo("body");
+                        var windowWidth = $(window).width();
+                        var windowHeight = $(window).height();
+                        //获取图片原始宽度、高度
+                        var orignImg = new Image();
+                        orignImg.src = currImg.src;
+                        var currImgWidth = orignImg.width;
+                        var currImgHeight = orignImg.height;
+                        if (currImgWidth < windowWidth) {//为了让图片不失真，当图片宽度较小的时候，保留原图
+                            if (currImgHeight < windowHeight) {
+                                var topHeight = (windowHeight - currImgHeight) / 2;
+                                if (topHeight > 35) {/*此处为了使图片高度上居中显示在整个手机屏幕中：因为在android,ios的微信中会有一个title导航，35为title导航的高度*/
+                                    topHeight = topHeight - 35;
+                                    css('top', topHeight);
+                                } else {
+                                    css('top', 0);
+                                }
+                                html('<img border=0 src=' + currImg.src + '>');
+                            } else {
+                                css('top', 0);
+                                html('<img border=0 src=' + currImg.src + ' height=' + windowHeight + '>');
+                            }
+                        } else {
+                            var currImgChangeHeight = (currImgHeight * windowWidth) / currImgWidth;
+                            if (currImgChangeHeight < windowHeight) {
+                                var topHeight = (windowHeight - currImgChangeHeight) / 2;
+                                if (topHeight > 35) {
+                                    topHeight = topHeight - 35;
+                                    css('top', topHeight);
+                                } else {
+                                    css('top', 0);
+                                }
+                                html('<img border=0 src=' + currImg.src + ' width=' + windowWidth + ';>');
+                            } else {
+                                css('top', 0);
+                                html('<img border=0 src=' + currImg.src + ' width=' + windowWidth + '; height=' + windowHeight + '>');
+                            }
+                        }
+                    }
+                    tempContainer.click(function () {
+                        $(this).remove();
+                        coverLayer(0);
+                    });
+                });
+            });
+        } else {
+            //return false;
+        }
+
+        //使用禁用蒙层效果
+        function coverLayer(tag) {
+            with ($('.over')) {
+                if (tag == 1) {
+                    css('height', $(document).height());
+                    css('display', 'block');
+                    css('opacity', 1);
+                    css("background-color", "#191919");
+                } else {
+                    css('display', 'none');
+                }
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/tutetube/getNoteType.from",
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "0") {
+                    alert("你还没有登陆，登陆下吧亲！");
+                    window.location.href = "login.html";
+                } else {
+                    $("#title").html("");
+                    $("#title").html(msg.trim());
+                    var note_id = location.href.split("?")[1];
+                    $.ajax({
+                        type: "POST",
+                        url: "/tutetube/getSingleNote.from?note_id=" + note_id.trim() + "",
+                        dataType: "html",
+                        async: false,
+                        success: function (msg) {
+                            var list = msg.split("#$");
+                            if (list[0] == "0") {//无图片的帖子
+                                $("#name").html(list[4]);
+                                $("#releaseTime").html(list[2]);
+                                $("#headicon").attr("src", list[3]);
+                                $("#college").html(list[5]);
+                                $("#comments").html(list[7]);
+                                $("#likes").html(list[8]);
+                                $("#contentValue").html(list[6]);
+                                $("#images-box").html("");
+                                $(".like-btn").attr("id", list[1]);
+                                $(".comment").attr("id", list[1]);
+                            } else if (list[0] == "1") {//有图片的帖子
+                                $("#name").html(list[4]);
+                                $("#releaseTime").html(list[2]);
+                                $("#headicon").attr("src", list[3]);
+                                $("#college").html(list[5]);
+                                $("#comments").html(list[7]);
+                                $("#likes").html(list[8]);
+                                $("#contentValue").html(list[6]);
+                                $(".like-btn").attr("id", list[1]);
+                                $(".comment").attr("id", list[1]);
+                                var imggesList = list[9].split("$&");
+                                var listSize = imggesList.length - 1;
+                                var imgres = "";
+                                for (var i = 0; i < listSize; i++) {
+                                    imgres += '<a class="amplifyImg"><img src=' + imggesList[i] + ' class=""></a> ';
+                                }
+                                $("#images-box").html(imgres);
+                            } else if (list[0] == "2") {
+                                $("#name").html(list[4]);
+                                $("#releaseTime").html(list[2]);
+                                $("#headicon").attr("src", list[3]);
+                                $("#college").html(list[5]);
+                                $("#comments").html(list[7]);
+                                $("#likes").html(list[8]);
+                                $("#contentValue").html(list[6]);
+                                $(".like-btn").attr("id", list[1]);
+                                $(".comment").attr("id", list[1]);
+                                var CommentList = list[9].split("%$");
+//                                        alert(list[9]);
+                                var commentSize = CommentList.length;
+//                                        alert(commentSize);
+                                var commentRes = "";
+                                for (var i = 0; i < commentSize - 1; i++) {
+                                    commentRes += '    <div   class="comment-item"> <div class="m-box comment-con-top"> <div  class="comment-user-img m-avatar-box"> <a  class="m-img-box"><img  src=' + CommentList[i].split("$&")[1] + ' alt=""> </a></div> <div  class="m-box-col"> <p  class="comment-user-name"> <span >' + CommentList[i].split("$&")[0] + '</span> </p> <p  class="comment-time"> <span>' + CommentList[i].split("$&")[3] + '</span> </p></div> </div> <div  class="comment-con-bot"><div class="comment-con"> <div  class="a-comment">' + CommentList[i].split("$&")[2] + ' </div> </div> </div> </div>';
+                                }
+                                $("#commentBox").html(commentRes);
+                            } else if (list[0] == "3") {
+//                                        alert(msg);
+                                $("#name").html(list[4]);
+                                $("#releaseTime").html(list[2]);
+                                $("#headicon").attr("src", list[3]);
+                                $("#college").html(list[5]);
+                                $("#comments").html(list[7]);
+                                $("#likes").html(list[8]);
+                                $("#contentValue").html(list[6]);
+                                $(".like-btn").attr("id", list[1]);
+                                $(".comment").attr("id", list[1]);
+                                var CommentList = list[9].split("%$");
+//                                        alert(list[9]);
+                                var commentSize = CommentList.length;
+//                                        alert(commentSize);
+                                var commentRes = "";
+                                for (var i = 0; i < commentSize; i++) {
+                                    if (i == commentSize - 1) {
+                                        var imagesList = CommentList[i].split("%#");
+                                        var imagesListSize = imagesList.length - 1;
+                                        var imgres = "";
+                                        for (var j = 0; j < imagesListSize; j++) {
+                                            imgres += '<a class="amplifyImg"><img src=' + imagesList[j] + ' class=""></a> ';
+                                        }
+//                                                alert(imgres);
+                                        $("#images-box").html(imgres);
+                                    } else {
+                                        commentRes += '    <div   class="comment-item"> <div class="m-box comment-con-top"> <div  class="comment-user-img m-avatar-box"> <a  class="m-img-box"><img  src=' + CommentList[i].split("$&")[1] + ' alt=""> </a></div> <div  class="m-box-col"> <p  class="comment-user-name"> <span >' + CommentList[i].split("$&")[0] + '</span> </p> <p  class="comment-time"> <span>' + CommentList[i].split("$&")[3] + '</span> </p></div> </div> <div  class="comment-con-bot"><div class="comment-con"> <div  class="a-comment">' + CommentList[i].split("$&")[2] + ' </div> </div> </div> </div>';
+                                    }
+                                }
+                                $("#commentBox").html(commentRes);
+                            }
+                            $('.amplifyImg img').jqthumb({
+                                width: 80,
+                                height: 80
+                            });
+                            var v = $('.amplifyImg');
+                            flushImages(v);
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
