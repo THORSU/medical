@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="../css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/sysuser.css"/>
+    <title>个人信息</title>
+    <style>
+        #update {
+            background-color: rgba(234, 86, 137, 0.74);
+            display: inline-block;
+            line-height: 50px;
+            font-size: smaller;
+            color: #ffffff;
+            width: 100%;
+            font-family: -webkit-body;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+        }
+    </style>
+<body>
+<div class="header">
+    <span>个人信息</span>
+    <a href="user-center.html" class="back"><i class="iconfont icon-left"></i></a>
+</div>
+<div>
+    <section class="list-info-page">
+        <div class="nickname item-info-page arrow-card showPop"><span>昵称</span>
+            <p id="J_name" class="J_label" iscompany="" contenteditable="true"></p></div>
+        <!--    <div class="item-info-page"><span>性别</span>-->
+        <!--        <div id="J_sex"class="L-select" onclick="alert('性别一旦确定无法修改！');return false;"></div>-->
+        <!--    </div>-->
+        <div class="item-info-page arrow-card  showPop"><span>手机号</span>
+            <p id="J_summary" class="J_label" contenteditable="true"></p></div>
+    </section>
+    <input type="button" value="更新" id="update" onclick="updateFile()">
+</div>
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/basic.js"></script>
+<script type="text/javascript" src="../js/rem.js"></script>
+<script type="text/javascript">
+    function updateFile() {
+        var name = $("#J_name").html();
+        var mobile = $("#J_summary").html();
+        $.ajax({
+            type: "POST",
+            url: "/medical/Info/updateInfo.from?nicknamecn=" + name.trim() + "&mobile=" + mobile.trim() + "",
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "1") {
+                    alert("更新成功！");
+                    window.location.reload();
+                } else if (msg == "104") {
+                    alert("会话失效，请重新登陆！");
+                    window.location.href = "login.html";
+                } else if (msg == "101") {
+                    alert("会话失效，请重新登陆！");
+                    window.location.href = "login.html";
+                } else if (msg == "102") {
+                    alert("网络异常！");
+                }
+
+            }
+        })
+    };
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/medical/cookie/checkCookie.form",
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "0") {
+                    alert("你还没有登陆，登陆下吧亲！");
+                    window.location.href = "login.html";
+                } else {
+                    console.log("会话正常！");
+                }
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/medical/Info/getUserInfo.from",
+            dataType: "html",
+            success: function (msg) {
+                if (msg == "0") {
+                    alert("你还没有登陆，登陆下吧亲！");
+                    window.location.href = "login.html";
+                } else {
+                    console.log(msg);
+                    var info = msg.split("#$%");
+                    var nicknamecn = info[0].trim();
+                    var mobile = info[1].trim();
+                    if (nicknamecn == "null" || nicknamecn == "") {
+                        nicknamecn = "昵称未设置";
+                    }
+                    if (mobile == "" || mobile == "null") {
+                        mobile = "手机号未设置";
+                    }
+                    $("#J_name").html(nicknamecn);
+                    $("#J_summary").html(mobile);
+                }
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

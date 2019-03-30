@@ -32,4 +32,10 @@ public interface UserMapper {
 
     //根据医生名获得医生详细信息
     Doctor getDoctorByName(@Param("name") String name);
+
+    //更新用户信息
+    int updateInfo(User user);
+
+    //更新医生信息
+    int updateDoctor(Doctor doctor);
 }

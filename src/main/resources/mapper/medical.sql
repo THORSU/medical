@@ -2,11 +2,12 @@
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
-  id       VARCHAR(255) NOT NULL PRIMARY KEY,
-  name     VARCHAR(255) NULL,
-  password VARCHAR(255) NULL,
-  status   VARCHAR(255) NULL,
-  mobile   VARCHAR(255) NULL
+    id       VARCHAR(255) NOT NULL PRIMARY KEY,
+    nickname VARCHAR(255) NULL,
+    name     VARCHAR(255) NULL,
+    password VARCHAR(255) NULL,
+    status   VARCHAR(255) NULL,
+    mobile   VARCHAR(255) NULL
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -15,12 +16,13 @@ CREATE TABLE `user`
 DROP TABLE IF EXISTS `doctor`;
 CREATE TABLE `doctor`
 (
-  id       VARCHAR(255) NOT NULL PRIMARY KEY,
-  name     VARCHAR(255) NULL,
-  password VARCHAR(255) NULL,
-  status   VARCHAR(255) NULL,
-  mobile   VARCHAR(255) NULL,
-  photo    VARCHAR(255) NULL
+    id       VARCHAR(255) NOT NULL PRIMARY KEY,
+    nickname VARCHAR(255) NULL,
+    name     VARCHAR(255) NULL,
+    password VARCHAR(255) NULL,
+    status   VARCHAR(255) NULL,
+    mobile   VARCHAR(255) NULL,
+    photo    VARCHAR(255) NULL
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

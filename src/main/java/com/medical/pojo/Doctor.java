@@ -11,6 +11,8 @@ public class Doctor implements Serializable {
     private String id;
     //姓名
     private String name;
+    //昵称
+    private String nickname;
     //密码
     private String password;
     //状态（0已删除，1正常）

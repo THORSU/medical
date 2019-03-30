@@ -37,4 +37,28 @@
     <select id="getDoctorByName" resultType="com.medical.pojo.Doctor">
         select * from `doctor` where name = #{name}
     </select>
+    <!--更新用户-->
+    <update id="updateInfo" parameterType="com.medical.pojo.User">
+        UPDATE `user`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="mobile!=null">mobile=#{mobile},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="name!=null">`name`=#{name},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+    <update id="updateDoctor" parameterType="com.medical.pojo.Doctor">
+        UPDATE `doctor`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="mobile!=null">mobile=#{mobile},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="name!=null">`name`=#{name},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="photo!=null">photo=#{photo},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
 </mapper>
