@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/font/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/manager.css"/>
+    <script type="text/javascript" src="../js/manager.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<!--顶部工具栏-->
+<div class="bd-header">
+    <div class="header-left">
+        <div class="logo" href="#">管理系统</div>
+    </div>
+    <div class="header-right">
+        <ul class="toolbar-list">
+            <li class="user-info">
+                <a href="#"><i class="fa fa-user-circle-o"></i>
+                    <div id="uname" style="margin-top: -60px;margin-left: 27px;">admin</div>
+                    <i id="user-info-arrow" class="fa fa-caret-down"></i></a>
+                <div class="user-info-panel">
+                    <span class="arrow"></span>
+                    <ul>
+                        <!--<li><a href="#">个人信息</a></li>-->
+                        <!--<li><a href="#">修改密码</a></li>-->
+                        <li><span class="line"></span></li>
+                        <li><a href="login.html">退出</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/顶部工具栏 -->
+<div class="bd-content">
+    <div class="bd-content-nav">
+        <h3 class="nav-title">导航列表</h3>
+        <ul class="parent-list">
+            <!--管理员-->
+            <li style="display: none" id="sbgl">
+                <a class="parent-list-item" href="javascript:;"><i class="fa fa-cog"></i> 设备管理<i
+                        class="fa fa-angle-down sanjiao"></i></a>
+                <ul class="son-list" style="display: block;">
+                    <li><a alt="./html/apply.html" title="用户信息" href="javascript:;"><i class="fa fa-address-book"></i>用户信息</a>
+                    </li>
+                    <li><a alt="./html/repair.html" title="文章管理" href="javascript:;"><i
+                            class="fa fa-adjust"></i>文章管理</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="bd-content-right">
+        <div class="content-right-title">
+            <ul id="content-right-title-ul">
+                <li><a href="#"><i class="fa fa-home"></i> 首页 </a></li>
+            </ul>
+        </div>
+        <iframe id="main" style="padding:0;margin:0;min-height: 558px;" src="welcome.html" width="100%"
+                frameborder="no"></iframe>
+    </div>
+
+</div>
+
+
+<script>
+    //初始化系统
+    bdyc.init();
+
+    //当屏幕大小发生改变时需求重新初始化高度
+    window.onresize = function () {
+        bdyc.initHeight();
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "/medical/cookie/getAdminCookie.form",
+            dataType: "html",
+            success: function (msg) {
+                var username = msg.split("$&")[0];
+                var identify = msg.split("$&")[1];
+                $("#uname").html(username);
+                $("#sbgl").show();
+            }
+        });
+    });
+</script>
+</body>
+</html>

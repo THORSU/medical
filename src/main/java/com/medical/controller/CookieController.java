@@ -221,5 +221,39 @@ public class CookieController {
             return jsonStr;
         }
     }
+
+    @RequestMapping(value = "/getAdminCookie.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object getAdminCookie(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        String username = "";
+        String identify = "";
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().trim().equals("username")) {
+                    try {
+                        username = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("-----转码失败！");
+                    }
+                } else if (c.getName().trim().equals("identify")) {
+                    try {
+                        identify = URLDecoder.decode(c.getValue().trim(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        logger.error("-----转码失败！");
+                    }
+                }
+            }
+            if (username.equals("") || identify.equals("")) {
+                logger.error("---cookie失效！");
+                return "0";
+            } else {
+                return username + "$&" + identify;
+            }
+        } else {
+            logger.error("---cookie失效！");
+            return "0";
+        }
+    }
 }
 
