@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="../css/manager/common.css"/>
+    <link rel="stylesheet" href="../css/font/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/manager/managerList.css"/>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div class="toolbar">
+    <a href="javascript:;" class="btn btn-primary"><i class="fa fa-edit"></i> 修改</a>
+    <a href="javascript:;" class="btn btn-primary"><i class="fa fa-trash"></i> 删除</a>
+</div>
+<div class="table-box">
+    <div class="table-list">
+        <table class="content-list-table" id="userform">
+            <tr>
+                <th></th>
+                <th><input class="table-check-all" type="checkbox" name="all"/></th>
+                <th>ID</th>
+                <th>手机号</th>
+                <th>用户名</th>
+            </tr>
+        </table>
+    </div>
+    <div class="content-pager">
+        <table class="content-pager-table">
+            <tr>
+
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    //初始化tablebox高度
+    bdyc.setTableBoxHeight();
+    bdyc.tableCheckAll();
+    bdyc.tableTrClick();
+    bdyc.tableTrCheckboxClick();
+    $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "/medical/manager/getUserList.from",
+            dataType: "html",
+            success: function (msg) {
+                var header = "<tr>\n" +
+                    "\t\t\t\t\t\t<th></th>\n" +
+                    "\t\t\t\t\t\t<th>ID</th>\n" +
+                    "\t\t\t\t\t\t<th>手机号</th>\n" +
+                    "\t\t\t\t\t\t<th>用户名</th>\n" +
+                    "\t\t\t\t\t</tr>";
+                var userLists = eval('(' + msg + ')');
+                var content = "";
+                for (var i = 0, l = userLists.length; i < l; i++) {
+                    for (var key in userLists[i]) {
+                        if (key == "id") {
+                            content += "<tr>\n" +
+                                "\t\t\t\t\t\t<td>" + (i + 1) + "</td>\n" +
+                                "\t\t\t\t\t\t<td>" + userLists[i][key] + "</td>\n";
+                        } else if (key == "name") {
+                            content += "\t\t\t\t\t\t<td>" + userLists[i][key] + "</td>\n";
+                        } else if (key == "mobile") {
+                            content += "\t\t\t\t\t\t<td>" + userLists[i][key] + "</td>\n";
+                        } else {
+                            content += "\t\t\t\t\t</tr>";
+                        }
+                    }
+                }
+                var userTableLists = header + content;
+                $("#userform").html(userTableLists);
+            }
+        })
+    })
+</script>
+</body>
+</html>

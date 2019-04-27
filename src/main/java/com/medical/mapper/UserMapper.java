@@ -5,6 +5,8 @@ import com.medical.pojo.Doctor;
 import com.medical.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
     //注册
     int addUser(User user);
@@ -38,4 +40,7 @@ public interface UserMapper {
 
     //更新医生信息
     int updateDoctor(Doctor doctor);
+
+    //获取用户列表
+    List<User> getUserList();
 }

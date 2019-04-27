@@ -4,6 +4,8 @@ import com.medical.pojo.Admin;
 import com.medical.pojo.Doctor;
 import com.medical.pojo.User;
 
+import java.util.List;
+
 
 public interface IUserService {
     //用户注册
@@ -38,4 +40,7 @@ public interface IUserService {
 
     //更新医生信息
     int updateDoctor(Doctor doctor);
+
+    //获取用户列表
+    List<User> getUserList();
 }
