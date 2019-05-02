@@ -92,7 +92,11 @@
             type: "POST",
             // url: "/tutetube/ReleaseNote.from?note_type=" + note_type.trim() + "&note_content=" + note_content.trim() + "&release_time=" + now + "",
             url: "/medical/note/ReleaseNote.from?",
-            data: {"imgList[]": img, note_type: note_type.trim(), note_content: note_content.trim(), release_time: now},
+            data: {
+                note_type: note_type.trim(),
+                note_content: note_content.trim(),
+                release_time: now
+            },
             dataType: "json",
             success: function (msg) {
                 if (msg == "100" || msg == "101" || msg == "102" || msg == "103") {

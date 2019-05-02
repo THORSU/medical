@@ -317,12 +317,12 @@
             },
             dataType: "json",
             success: function (msg) {
-                if (msg == "1") {
+                if (msg == "success") {
                     window.location.reload();
                 } else if (msg == "102") {
                     alert("会话失效，请重新登录！");
                     window.location.href = "login.html";
-                } else if (msg == "0") {
+                } else if (msg == "fail") {
                     alert("网络异常！");
                     window.location.reload();
                 }

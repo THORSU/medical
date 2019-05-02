@@ -164,9 +164,9 @@ public class NoteController {
             Note note = noteService.getNoteById(note_id);
             //获取发起人姓名
             String name = "";
-            if (!StringUtils.isEmpty(userService.getUserById(note.getId()))) {
+            if (!StringUtils.isEmpty(note.getId()) && note.getUser_type().equals("user")) {
                 name = userService.getUserById(note.getId()).getName();
-            } else if (!StringUtils.isEmpty(userService.getDoctorById(note.getId()))) {
+            } else if (!StringUtils.isEmpty(note.getId()) && note.getUser_type().equals("doctor")) {
                 name = userService.getDoctorById(note.getId()).getName();
             }
             //无评论
@@ -181,13 +181,12 @@ public class NoteController {
                 res = "2#$" + note.getNote_id() + "#$" + note.getRelease_time() + "#$" + name + "#$"
                         + note.getNote_content() + "#$" + note.getNote_comment_counts() + "#$" + note.getNote_likes() + "#$";
                 List<Note_Comment> listComment = noteService.getNoteCommentsByNote_id(note_id);
-                int listCommentSize = listComment.size();
-                for (int i = 0; i < listCommentSize; i++) {
+                for (int i = 0; i < listComment.size(); i++) {
                     //获取评论人姓名
                     String commentName = "";
-                    if (!StringUtils.isEmpty(listComment.get(i).getId())) {
+                    if (!StringUtils.isEmpty(listComment.get(i).getId()) && note.getUser_type().equals("user")) {
                         commentName = userService.getUserById(listComment.get(i).getId()).getName();
-                    } else if (!StringUtils.isEmpty(userService.getDoctorById(listComment.get(i).getId()))) {
+                    } else if (!StringUtils.isEmpty(listComment.get(i).getId()) && note.getUser_type().equals("doctor")) {
                         commentName = userService.getDoctorById(listComment.get(i).getId()).getName();
                     }
                     res += "" + commentName + "$&" + listComment.get(i).getNote_comment_content() + "$&" + listComment.get(i).getNote_comment_release_time() + "%$";
@@ -247,9 +246,9 @@ public class NoteController {
                 noteService.saveComment(nc);
                 n.setNote_comment_counts(String.valueOf(Integer.parseInt(n.getNote_comment_counts()) + 1));
                 noteService.updateNote(n);
-                return "success";
+                return JSON.toJSONString("success");
             } catch (Exception e) {
-                return "fail";
+                return JSON.toJSONString("fail");
             }
         }
     }
