@@ -192,7 +192,7 @@ public class CookieController {
             } else if (identify.equals("doctor")) {
                 doctor = userService.getDoctorByName(nickname);
             }
-            if (user != null) {
+            if (user.getName() != null) {
                 String nicknamecn = "";
                 try {
                     nicknamecn = URLDecoder.decode(user.getName(), "UTF-8");
@@ -202,7 +202,7 @@ public class CookieController {
                 jsonStr = "nicknamecn#$%" + nicknamecn.trim();
                 logger.info(jsonStr);
                 return jsonStr;
-            } else if (doctor != null) {
+            } else if (doctor.getName() != null) {
                 String nicknamecn = "";
                 try {
                     nicknamecn = URLDecoder.decode(doctor.getName(), "UTF-8");
