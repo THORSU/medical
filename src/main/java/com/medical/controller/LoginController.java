@@ -96,7 +96,7 @@ public class LoginController {
 
         User res = userService.userLogin(user);
         if (res != null) {
-            if (res.getPassword().equals(password)) {
+            if (res.getPassword().equals(password) && ("1").equals(res.getStatus())) {
                 Cookie uname = new Cookie("username", res.getName());
                 Cookie identify = new Cookie("identify", "user");
                 identify.setPath("/");
@@ -106,6 +106,8 @@ public class LoginController {
                 response.addCookie(uname);
                 response.addCookie(identify);
                 return JSON.toJSONString("login success");
+            } else if (("0").equals(res.getStatus())) {
+                return JSON.toJSONString("have deleted");
             } else {
                 return JSON.toJSONString("login failure");
             }
@@ -127,7 +129,7 @@ public class LoginController {
         Doctor res = userService.doctorLogin(doctor);
 //        System.out.println(res.getPassword());
         if (res != null) {
-            if (res.getPassword().equals(password)) {
+            if (res.getPassword().equals(password) && ("1").equals(res.getStatus())) {
                 Cookie uname = new Cookie("username", res.getName());
                 Cookie identify = new Cookie("identify", "doctor");
                 identify.setPath("/");
@@ -137,6 +139,8 @@ public class LoginController {
                 response.addCookie(uname);
                 response.addCookie(identify);
                 return JSON.toJSONString("login success");
+            } else if (("0").equals(res.getStatus())) {
+                return JSON.toJSONString("deleted");
             } else {
                 return JSON.toJSONString("login failure");
             }
