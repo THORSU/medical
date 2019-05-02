@@ -1,7 +1,9 @@
 package com.medical.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.medical.pojo.Note;
 import com.medical.pojo.User;
+import com.medical.service.INoteService;
 import com.medical.service.IUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ManagerController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private INoteService noteService;
+
     /**
      * 获取用户列表
      *
@@ -35,5 +40,20 @@ public class ManagerController {
     Object getUserList(HttpServletRequest request, HttpServletResponse response) {
         List<User> users = userService.getUserList();
         return JSON.toJSONString(users);
+    }
+
+    /**
+     * 获取帖子列表
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/getNoteList.from", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public
+    @ResponseBody
+    Object getNoteList(HttpServletRequest request, HttpServletResponse response) {
+        List<Note> notes = noteService.getNoteList();
+        return JSON.toJSONString(notes);
     }
 }

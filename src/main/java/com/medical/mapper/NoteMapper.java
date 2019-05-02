@@ -24,4 +24,7 @@ public interface NoteMapper {
 
     // 发布文章
     int saveNote(Note note);
+
+    //获取帖子列表
+    List<Note> getNoteList();
 }

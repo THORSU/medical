@@ -43,4 +43,9 @@ public class NoteServiceImpl implements INoteService {
     public int saveNote(Note note) {
         return noteMapper.saveNote(note);
     }
+
+    @Override
+    public List<Note> getNoteList() {
+        return noteMapper.getNoteList();
+    }
 }

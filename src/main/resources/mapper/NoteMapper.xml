@@ -32,4 +32,8 @@
         </trim>
         WHERE note_id=#{note_id}
     </update>
+
+    <select id="getNoteList" resultMap="noteResult">
+        select * from `note`
+    </select>
 </mapper>

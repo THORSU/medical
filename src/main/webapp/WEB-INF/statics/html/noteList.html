@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章管理</title>
+    <link rel="stylesheet" href="../css/manager/common.css"/>
+    <link rel="stylesheet" href="../css/font/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/manager/managerList.css"/>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script src="../js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div class="table-box">
+    <div class="table-list">
+        <table class="content-list-table" id="noteform">
+            <tr>
+                <th></th>
+                <th><input class="table-check-all" type="checkbox" name="all"/></th>
+                <th>帖子内容</th>
+                <th>ID</th>
+                <th>帖子类型</th>
+            </tr>
+        </table>
+    </div>
+    <div class="content-pager">
+        <table class="content-pager-table">
+            <tr>
+
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    //初始化tablebox高度
+    bdyc.setTableBoxHeight();
+    bdyc.tableCheckAll();
+    bdyc.tableTrClick();
+    bdyc.tableTrCheckboxClick();
+    $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "/medical/manager/getNoteList.from",
+            dataType: "html",
+            success: function (msg) {
+                var header = "<tr>\n" +
+                    "\t\t\t\t\t\t<th></th>\n" +
+                    "\t\t\t\t\t\t<th>帖子内容</th>\n" +
+                    "\t\t\t\t\t\t<th>ID</th>\n" +
+                    "\t\t\t\t\t\t<th>帖子类型</th>\n" +
+                    "\t\t\t\t\t</tr>";
+                var noteLists = eval('(' + msg + ')');
+                console.log(noteLists)
+                var content = "";
+                for (var i = 0, l = noteLists.length; i < l; i++) {
+                    for (var key in noteLists[i]) {
+                        if (key == "note_content") {
+                            content += "<tr>\n" +
+                                "\t\t\t\t\t\t<td>" + (i + 1) + "</td>\n" +
+                                "\t\t\t\t\t\t<td>" + noteLists[i][key] + "</td>\n";
+                        } else if (key == "note_id") {
+                            content += "\t\t\t\t\t\t<td>" + noteLists[i][key] + "</td>\n";
+                        } else if (key == "note_type") {
+                            content += "\t\t\t\t\t\t<td>" + noteLists[i][key] + "</td>\n";
+                            content += "\t\t\t\t\t</tr>";
+                        }
+                    }
+                }
+                console.log(content)
+                var userTableLists = header + content;
+                $("#noteform").html(userTableLists);
+            }
+        })
+    })
+</script>
+</body>
+</html>
