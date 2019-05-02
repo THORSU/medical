@@ -19,6 +19,8 @@ public class Note implements Serializable {
     private String note_content;
     //点赞数
     private String note_likes;
+    //发起人类型
+    private String user_type;
     //评论数
     private String note_comment_counts;
 }

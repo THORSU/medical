@@ -77,12 +77,17 @@ public class NoteController {
             String note_likes = note.getNote_likes();
             //获取评论数
             String note_comment_counts = note.getNote_comment_counts();
+            //获取发起人类型
+            String userType = note.getUser_type();
             //获取发起人姓名
             String name = "";
-            if (identify.equals("user")) {
+            String userTypeName = "";
+            if (userType.equals("user")) {
                 name = userService.getUserById(id).getName();
-            } else if (identify.equals("doctor")) {
+                userTypeName = "用户";
+            } else if (userType.equals("doctor")) {
                 name = userService.getDoctorById(id).getName();
+                userTypeName = "医生";
             }
             topic_list += " <li class=\"topic-li\">\n" +
                     "            <div class=\"main\">\n" +
@@ -91,7 +96,7 @@ public class NoteController {
 //                    "                         src=\"" + headicon.trim() + "\">\n" +
                     "\n" +
                     "                    <div class=\"title\">\n" +
-                    "                        <p class=\"name\">" + name.trim() + "</p>\n" +
+                    "                        <p class=\"name\">" + name.trim() + "-" + userTypeName.trim() + "</p>\n" +
                     "\n" +
                     "                        <p class=\"relate\"><span class=\"time\">" + release_time.trim() +
                     "                    </div>\n" +
@@ -305,6 +310,7 @@ public class NoteController {
                     nt.setNote_comment_counts("0");
                     nt.setNote_likes("0");
                     nt.setNote_content(note_content);
+                    nt.setUser_type(identify);
                     noteService.saveNote(nt);
                     logger.info("帖子基本信息插入成功！");
                     return "1";//TODO 帖子发布成功
