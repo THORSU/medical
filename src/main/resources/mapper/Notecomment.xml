@@ -9,6 +9,7 @@
         <result property="note_comment_id" column="note_comment_id"/>
         <result property="note_comment_content" column="note_comment_content"/>
         <result property="note_comment_release_time" column="note_comment_release_time"/>
+        <result property="user_type" column="user_type"/>
     </resultMap>
 
     <!--通过note_id获取评论-->
@@ -17,8 +18,8 @@
     </select>
     <!--添加评论-->
     <insert id="saveComment" parameterType="com.medical.pojo.Note_Comment">
-        insert into note_comment (note_comment_id, note_id,id, note_comment_content,note_comment_release_time)
-        values(#{note_comment_id},#{note_id},#{id},#{note_comment_content},#{note_comment_release_time});
+        insert into note_comment (note_comment_id, note_id,id, note_comment_content,note_comment_release_time,user_type)
+        values(#{note_comment_id},#{note_id},#{id},#{note_comment_content},#{note_comment_release_time},#{user_type});
     </insert>
     <!--添加文章-->
     <insert id="saveNote" parameterType="com.medical.pojo.Note">

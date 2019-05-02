@@ -63,12 +63,13 @@ CREATE TABLE `note`
 DROP TABLE IF EXISTS `note_comment`;
 CREATE TABLE `note_comment`
 (
-  `note_comment_id`           varchar(24) COLLATE utf8_unicode_ci NOT NULL,
-  `note_id`                   varchar(24) COLLATE utf8_unicode_ci    DEFAULT NULL,
-  `id`                        varchar(24) COLLATE utf8_unicode_ci    DEFAULT NULL,
-  `note_comment_content`      varchar(20000) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `note_comment_release_time` varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL,
-  PRIMARY KEY (`note_comment_id`)
+    `note_comment_id`           varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+    `note_id`                   varchar(24) COLLATE utf8_unicode_ci    DEFAULT NULL,
+    `id`                        varchar(24) COLLATE utf8_unicode_ci    DEFAULT NULL,
+    `note_comment_content`      varchar(20000) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `note_comment_release_time` varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL,
+    `user_type`                 varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL,
+    PRIMARY KEY (`note_comment_id`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;

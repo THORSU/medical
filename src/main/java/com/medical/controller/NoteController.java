@@ -164,32 +164,39 @@ public class NoteController {
             Note note = noteService.getNoteById(note_id);
             //获取发起人姓名
             String name = "";
+            //获取发起人身份
+            String name_type = "";
             if (!StringUtils.isEmpty(note.getId()) && note.getUser_type().equals("user")) {
+                name_type = "用户";
                 name = userService.getUserById(note.getId()).getName();
             } else if (!StringUtils.isEmpty(note.getId()) && note.getUser_type().equals("doctor")) {
+                name_type = "医生";
                 name = userService.getDoctorById(note.getId()).getName();
             }
             //无评论
             if (note.getNote_comment_counts().equals("0")) {
-                res = "0#$" + note.getNote_id() + "#$" + note.getRelease_time() + "#$" + name + "#$"
+                res = "0#$" + note.getNote_id() + "#$" + note.getRelease_time() + "#$" + name + "-" + name_type + "#$"
                         + note.getNote_content() + "#$" + note.getNote_comment_counts() + "#$" + note.getNote_likes() + "";
-
                 return res;
             }
             //有评论
             else {
-                res = "2#$" + note.getNote_id() + "#$" + note.getRelease_time() + "#$" + name + "#$"
+                res = "2#$" + note.getNote_id() + "#$" + note.getRelease_time() + "#$" + name + "-" + name_type + "#$"
                         + note.getNote_content() + "#$" + note.getNote_comment_counts() + "#$" + note.getNote_likes() + "#$";
                 List<Note_Comment> listComment = noteService.getNoteCommentsByNote_id(note_id);
                 for (int i = 0; i < listComment.size(); i++) {
                     //获取评论人姓名
                     String commentName = "";
-                    if (!StringUtils.isEmpty(listComment.get(i).getId()) && note.getUser_type().equals("user")) {
+                    //获取评论人身份
+                    String listComment_type = "";
+                    if (!StringUtils.isEmpty(listComment.get(i).getId()) && listComment.get(i).getUser_type().equals("user")) {
+                        listComment_type = "用户";
                         commentName = userService.getUserById(listComment.get(i).getId()).getName();
-                    } else if (!StringUtils.isEmpty(listComment.get(i).getId()) && note.getUser_type().equals("doctor")) {
+                    } else if (!StringUtils.isEmpty(listComment.get(i).getId()) && listComment.get(i).getUser_type().equals("doctor")) {
+                        listComment_type = "医生";
                         commentName = userService.getDoctorById(listComment.get(i).getId()).getName();
                     }
-                    res += "" + commentName + "$&" + listComment.get(i).getNote_comment_content() + "$&" + listComment.get(i).getNote_comment_release_time() + "%$";
+                    res += "" + commentName + "-" + listComment_type + "$&" + listComment.get(i).getNote_comment_content() + "$&" + listComment.get(i).getNote_comment_release_time() + "%$";
                 }
                 return res;
             }
@@ -243,6 +250,7 @@ public class NoteController {
                     Doctor doctor = userService.getDoctorByName(nickname1);
                     nc.setId(doctor.getId());
                 }
+                nc.setUser_type(identify);
                 noteService.saveComment(nc);
                 n.setNote_comment_counts(String.valueOf(Integer.parseInt(n.getNote_comment_counts()) + 1));
                 noteService.updateNote(n);

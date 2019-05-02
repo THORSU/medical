@@ -446,7 +446,7 @@
                         success: function (msg) {
                             var list = msg.split("#$");
                             alert(list)
-                            if (list[0] == "0") {//无图片的帖子
+                            if (list[0] == "0") {//无评论的帖子
                                 $("#name").html(list[3]);
                                 $("#releaseTime").html(list[2]);
                                 $("#comments").html(list[5]);
@@ -455,7 +455,7 @@
                                 $("#images-box").html("");
                                 $(".like-btn").attr("id", list[1]);
                                 $(".comment").attr("id", list[1]);
-                            } else if (list[0] == "2") {
+                            } else if (list[0] == "2") {//有评论的帖子
                                 $("#name").html(list[3]);
                                 $("#releaseTime").html(list[2]);
                                 $("#comments").html(list[5]);
