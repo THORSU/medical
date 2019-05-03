@@ -13,9 +13,15 @@
     <insert id="addUser" parameterType="com.medical.pojo.User">
         insert into `user` (id,name, password, status, mobile) value (#{id},#{name},#{password},#{status},#{mobile})
     </insert>
+    <select id="getUser" parameterType="java.lang.String" resultType="java.lang.String">
+        select name from `user` where name = #{username}
+    </select>
     <insert id="addDoctor" parameterType="com.medical.pojo.Doctor">
         insert into `doctor` (id,name, password, status, mobile, photo) value (#{id},#{name},#{password},#{status},#{mobile},#{photo})
     </insert>
+    <select id="getDoctor" parameterType="java.lang.String" resultType="java.lang.String">
+        select name from `doctor` where name = #{doctorname}
+    </select>
     <select id="userLogin" parameterType="com.medical.pojo.User" resultType="com.medical.pojo.User">
         select * from `user` where name = #{name}
     </select>

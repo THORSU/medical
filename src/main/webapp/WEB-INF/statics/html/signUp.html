@@ -6,7 +6,8 @@
     <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
     <link href="../css/register.css" type="text/css" rel="stylesheet"/>
 </head>
-<body>
+<body background="../img/index.jpg"
+      style=" background-repeat:no-repeat ;background-size:100% 100%; background-attachment: fixed;">
 <div data-role="page">
     <div data-role="content">
         <form>
@@ -76,23 +77,6 @@
         }
     }
 
-    function checkUser(v) {
-        if (v == "username") {
-            var username = $("#username").val();
-            console.log(username)
-            $.ajax({
-                type: "post",
-                url: "/asset/CheckUserName.form?username=" + username.trim(),
-                dataType: "html",
-                success: function (msg) {
-                    if (msg == "already exist") {
-                        alert("用户名已被使用！");
-                    }
-                }
-            })
-        }
-    }
-
     window.onload = function () {
         var _yanzhengma = document.getElementById("yanzhengma");
         getRandomMath(_yanzhengma);
@@ -126,8 +110,6 @@
     }
 
     function SignUp() {
-        // var identify = window.location.href.trim().split("?")[1];
-        // if (identify == "js") {
         var username = $("#username").val();
         console.log(username)
         var password = $("#password").val();
@@ -161,6 +143,9 @@
                                         window.location.href = 'login.html';
                                     }
                                     break;
+                                case "have SignUp":
+                                    alert("已注册");
+                                    break;
                                 case "SignUp fail":
                                     alert("注册失败");
                                     break;
@@ -191,6 +176,9 @@
                                         window.location.href = 'login.html';
                                     }
                                     break;
+                                case "have SignUp":
+                                    alert("已注册");
+                                    break;
                                 case "SignUp fail":
                                     alert("注册失败");
                                     break;
@@ -202,13 +190,6 @@
         } else {
             alert("验证码错误");
         }
-        // }
-        // else if (identify == "yw") {
-        //
-        // }
-        // else if (identify == "super") {
-        //
-        // }
     }
 
 </script>

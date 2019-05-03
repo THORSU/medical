@@ -20,8 +20,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public String getUser(String username) {
+        return userMapper.getUser(username);
+    }
+
+    @Override
     public int addDoctor(Doctor doctor) {
         return userMapper.addDoctor(doctor);
+    }
+
+    @Override
+    public String getDoctor(String doctorname) {
+        return userMapper.getDoctor(doctorname);
     }
 
     @Override

@@ -11,8 +11,14 @@ public interface IUserService {
     //用户注册
     int addUser(User user);
 
+    //查看用户有没有注册
+    String getUser(String username);
+
     //医生注册
     int addDoctor(Doctor doctor);
+
+    //查看医生有没有注册
+    String getDoctor(String doctorname);
 
     //用户登录
     User userLogin(User user);

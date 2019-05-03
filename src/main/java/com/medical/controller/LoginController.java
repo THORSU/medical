@@ -9,6 +9,7 @@ import com.medical.utils.GenerateSequenceUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,6 +38,9 @@ public class LoginController {
         String password = request.getParameter("password").trim();
         String password1 = request.getParameter("password1").trim();
         String mobile = request.getParameter("mobile").trim();
+        if (!StringUtils.isEmpty(userService.getUser(username))) {
+            return JSON.toJSONString("have SignUp");
+        }
         if (!password1.equals(password)) {
             return JSON.toJSONString("password error");
         } else {
@@ -64,6 +68,9 @@ public class LoginController {
         String password = request.getParameter("password").trim();
         String password1 = request.getParameter("password1").trim();
         String mobile = request.getParameter("mobile").trim();
+        if (!StringUtils.isEmpty(userService.getDoctor(username))) {
+            return JSON.toJSONString("have SignUp");
+        }
         if (!password1.equals(password)) {
             return JSON.toJSONString("password error");
         } else {
