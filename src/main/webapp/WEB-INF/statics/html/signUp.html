@@ -60,9 +60,7 @@
                     <br>
                     <div>
                        <span>
-                        <input id="imageFile" name="fileselect[]" type="file" accept="image/*"
-                               multiple onclick="pushImg()"/>
-                           <!--				        <img src="../upload/img/default.jpg" id="headicon">-->
+                            <input id="imageFile" name="fileselect[]" type="file" accept="image/*" multiple/>
 			            </span>
                     </div>
                     <br>
@@ -129,6 +127,7 @@
     }
 
     function SignUp() {
+        pushImg()
         var username = $("#username").val();
         var password = $("#password").val();
         var password1 = $("#password1").val();
@@ -212,7 +211,6 @@
 
 
     function pushImg(obj) {
-        debugger;
         var url = "/medical/login/upload/"; //访问控制器是upload，后面必须加'/'否则会报错"org.apache.catalina.connector.RequestFacade cannot be cast to org.springframework.web.multipart.Mult...",但是如果是多级的URL【例如XX/XXX/00/upload/0】又没问题了.
         var param = $("#errorParameter").val();
 
@@ -232,10 +230,14 @@
             url: url,
             data: fd,
             success: function (msg) {
-                debugger;
                 var jsonString = JSON.stringify(msg);
                 $("#txtTd").text(jsonString)
-                alert(jsonString);
+                console.log(jsonString);
+                if (jsonString == "{}") {
+                    alert("未选择上传照片")
+                } else {
+                    alert("图片上传成功")
+                }
             },
             error: function (msg) {
                 debugger;

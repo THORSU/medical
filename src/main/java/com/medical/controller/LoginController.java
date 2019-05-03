@@ -235,6 +235,14 @@ public class LoginController {
     }
 
 
+    /**
+     * 上传
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     public @ResponseBody
     Object pushErrorData(HttpServletRequest request, HttpServletResponse response) throws Exception {
