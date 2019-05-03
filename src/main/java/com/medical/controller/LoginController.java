@@ -13,11 +13,17 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/medical/login")
@@ -226,5 +232,59 @@ public class LoginController {
         } else {
             return JSON.toJSONString("identity error");
         }
+    }
+
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object pushErrorData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        // 转型为MultipartHttpRequest(重点的所在)这个就是上面ajax中提到如果直接访问此接口而不加"/"，此转型就会报错
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+        // 获得第1张图片（根据前台的name名称得到上传的文件）
+        MultipartFile file = multipartRequest.getFile("errPic"); //对应  jquery $("#imageFile").get(0).files[index]
+        Map<String, Object> map = new HashMap<String, Object>();
+        if (null != file && !file.isEmpty()) {
+            try {
+                map = uploadFile(file);
+
+
+            } catch (IOException e) {
+            }
+        }
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 图片上传
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    public static Map<String, Object> uploadFile(MultipartFile file)
+            throws IOException, Exception {
+        String filePath = "D:\\idea\\upload\\";
+        Map<String, Object> map = new HashMap<String, Object>();
+        String fileName = file.getOriginalFilename();
+        fileName = new String(fileName.getBytes("ISO-8859-1"), "UTF-8");
+        File tempFile = new File(filePath, System.currentTimeMillis() + fileName);
+
+        try {
+            if (!tempFile.getParentFile().exists()) {
+                tempFile.getParentFile().mkdirs();//如果是多级文件使用mkdirs();如果就一层级的话，可以使用mkdir()
+            }
+            if (!tempFile.exists()) {
+                boolean blag = tempFile.createNewFile();
+                System.out.println(blag);
+            }
+            file.transferTo(tempFile);
+        } catch (IllegalStateException e) {
+        }
+
+        map.put("data", filePath + System.currentTimeMillis() + tempFile.getName());
+
+        return map;
     }
 }

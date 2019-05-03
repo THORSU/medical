@@ -60,8 +60,8 @@
                     <br>
                     <div>
                        <span>
-                        <input id="picupload" class="picupload" name="fileselect[]" type="file" accept="image/*"
-                               multiple/>
+                        <input id="imageFile" name="fileselect[]" type="file" accept="image/*"
+                               multiple onclick="pushImg()"/>
                            <!--				        <img src="../upload/img/default.jpg" id="headicon">-->
 			            </span>
                     </div>
@@ -89,9 +89,9 @@
     function changeState() {
         var identify = $("#identify").find("option:selected").text();
         if (identify == "医生注册") {
-            $("#picupload").show();
+            $("#imageFile").show();
         } else {
-            $("#picupload").hide();
+            $("#imageFile").hide();
         }
     }
 
@@ -101,7 +101,7 @@
         var _random = null;
         var loginform = document.getElementById("loginform");
         var indexVlaue = null;
-        $("#picupload").hide();
+        $("#imageFile").hide();
     }
 
     //随机颜色函数
@@ -210,6 +210,39 @@
         }
     }
 
+
+    function pushImg(obj) {
+        debugger;
+        var url = "/medical/login/upload/"; //访问控制器是upload，后面必须加'/'否则会报错"org.apache.catalina.connector.RequestFacade cannot be cast to org.springframework.web.multipart.Mult...",但是如果是多级的URL【例如XX/XXX/00/upload/0】又没问题了.
+        var param = $("#errorParameter").val();
+
+        var files = $("#imageFile").get(0).files[0]; //获取file控件中的内容
+
+        var fd = new FormData();
+        fd.append("userID", "1");
+        fd.append("errDeviceType", "001");
+        fd.append("errDeviceID", "11761b4a-57bf-11e5-aee9-005056ad65af");
+        fd.append("errType", "001");
+        fd.append("errContent", "XXXXXX");
+        fd.append("errPic", files);
+        $.ajax({
+            type: "POST",
+            contentType: false, //必须false才会避开jQuery对 formdata 的默认处理 , XMLHttpRequest会对 formdata 进行正确的处理
+            processData: false, //必须false才会自动加上正确的Content-Type
+            url: url,
+            data: fd,
+            success: function (msg) {
+                debugger;
+                var jsonString = JSON.stringify(msg);
+                $("#txtTd").text(jsonString)
+                alert(jsonString);
+            },
+            error: function (msg) {
+                debugger;
+                alert("error");
+            }
+        });
+    }
 </script>
 </body>
 </html>
