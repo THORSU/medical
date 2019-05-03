@@ -19,9 +19,9 @@
                 <div class="content">
                     <div class="my_re_input">
                         <label for="identify"></label>
-                        <select class="select" id="identify">
-                            <option>用户注册</option>
-                            <option>医生注册</option>
+                        <select class="select" id="identify" onchange="changeState()">
+                            <option value="user">用户注册</option>
+                            <option value="doctor">医生注册</option>
                         </select>
                     </div>
                     <br>
@@ -58,6 +58,14 @@
                         <span id="yanzhengma" style="font-size: 23px;" onclick="getRandomMath(this)"></span>
                     </div>
                     <br>
+                    <div>
+                       <span>
+                        <input id="picupload" class="picupload" name="fileselect[]" type="file" accept="image/*"
+                               multiple/>
+                           <!--				        <img src="../upload/img/default.jpg" id="headicon">-->
+			            </span>
+                    </div>
+                    <br>
                     <div class="my_re_button">
                         <input type="button" class="regButton" value="确认注册" data-inline="true" onclick="SignUp()">
                     </div>
@@ -68,6 +76,7 @@
     </div>
 </div>
 <script type="text/javascript">
+
     var flag = true;
 
     function validateCode() {
@@ -77,12 +86,22 @@
         }
     }
 
+    function changeState() {
+        var identify = $("#identify").find("option:selected").text();
+        if (identify == "医生注册") {
+            $("#picupload").show();
+        } else {
+            $("#picupload").hide();
+        }
+    }
+
     window.onload = function () {
         var _yanzhengma = document.getElementById("yanzhengma");
         getRandomMath(_yanzhengma);
         var _random = null;
         var loginform = document.getElementById("loginform");
         var indexVlaue = null;
+        $("#picupload").hide();
     }
 
     //随机颜色函数
