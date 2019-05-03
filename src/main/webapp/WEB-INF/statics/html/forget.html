@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+    <link href="../css/login.css" type="text/css" rel="stylesheet">
+</head>
+<body background="../img/index.jpg"
+      style=" background-repeat:no-repeat ;background-size:100% 100%; background-attachment: fixed;">
+<div data-role="page" class="my_login">
+    <div data-role="content" class="ui-content">
+        <form>
+            <table width="202" border="0" align="center" cellpadding="05" cellspacing="0" id="logintable">
+                <tr>
+                    <td width="400">
+                        <div class="message">忘记密码</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="select" id="identify">
+                            <option>用户修改密码</option>
+                            <option>医生修改密码</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input name="name" type="text" id="username" value="" placeholder="请输入用户名"></td>
+                </tr>
+                <tr>
+                    <td><input name="mobile" type="text" id="mobile" value="" placeholder="请输入手机号"></td>
+                </tr>
+                <tr>
+                    <td><input name="psd" type="password" id="password" value="" placeholder="请输入新密码"></td>
+                </tr>
+                <tr>
+                    <td><input name="psd" type="password" id="password1" value="" placeholder="请确认新密码"></td>
+                </tr>
+                <tr>
+                    <td id="tip"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" class="forget1" value="提交" onclick="forgetpwd()" data-inline="true"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div id="my_footer">
+</div>
+<script type="text/javascript">
+    function forgetpwd() {
+        var username = $("#username").val();
+        var mobile = $("#mobile").val();
+        var password = $("#password").val();
+        var password1 = $("#password1").val();
+        var identify = $("#identify").find("option:selected").text();
+        var identify1 = "";
+        if (identify == "用户修改密码") {
+            identify1 = "user"
+        } else if (identify == "医生修改密码") {
+            identify1 = "doctor"
+        }
+        $.ajax({
+            type: "post",
+            url: "/medical/login/forgetpwd.form",
+            data: {
+                username: username.trim(),
+                mobile: mobile.trim(),
+                password: password.trim(),
+                password1: password1.trim(),
+                identify1: identify1.trim()
+            },
+            dataType: "json",
+            success: function (msg) {
+                switch (msg) {
+                    case "password error":
+                        alert("密码不一致")
+                        break;
+                    case "change success":
+                        window.location.href = 'login.html';
+                        alert("修改成功")
+                        break;
+                    case "mobile or name error":
+                        alert("手机号或者用户名不正确")
+                        break;
+                    case "identity error":
+                        alert("身份错误")
+                        break;
+                    default:
+                        alert("未知错误")
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -37,7 +37,8 @@
                 </tr>
                 <tr>
                     <td><input type="button" class="submit" value="登录" onclick="Login()" data-inline="true"></td>
-                    <td><input type="button" value="注册" class="register" onclick="toRegister()"></td>
+                    <td><input type="button" class="register" value="注册" onclick="toRegister()"></td>
+                    <td><input type="button" class="forget" value="忘记密码" onclick="forget()"></td>
                 </tr>
             </table>
         </form>
@@ -49,6 +50,10 @@
 <script type="text/javascript">
     function toRegister() {
         window.location = "signUp.html";
+    }
+
+    function forget() {
+        window.location = "forget.html";
     }
 
     function Login() {

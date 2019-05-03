@@ -186,4 +186,45 @@ public class LoginController {
             return JSON.toJSONString("not register");
         }
     }
+
+    //忘记密码
+    @RequestMapping(value = "/forgetpwd.form", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public @ResponseBody
+    Object forgetpwd(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String username = request.getParameter("username").trim();
+        String mobile = request.getParameter("mobile").trim();
+        String password = request.getParameter("password").trim();
+        String password1 = request.getParameter("password1").trim();
+        String identify1 = request.getParameter("identify1").trim();
+        if (!password.equals(password1)) {
+            return JSON.toJSONString("password error");
+        }
+        if (identify1.equals("user")) {
+            user.setName(username);
+            User res = userService.userLogin(user);
+            if (res == null) {
+                return JSON.toJSONString("mobile or name error");
+            }
+            if (!res.getMobile().equals(mobile)) {
+                return JSON.toJSONString("mobile or name error");
+            }
+            res.setPassword(password);
+            userService.updateInfo(res);
+            return JSON.toJSONString("change success");
+        } else if (identify1.equals("doctor")) {
+            doctor.setName(username);
+            Doctor res = userService.doctorLogin(doctor);
+            if (res == null) {
+                return JSON.toJSONString("mobile or name error");
+            }
+            if (!res.getMobile().equals(mobile)) {
+                return JSON.toJSONString("mobile or name error");
+            }
+            res.setPassword(password);
+            userService.updateDoctor(res);
+            return JSON.toJSONString("change success");
+        } else {
+            return JSON.toJSONString("identity error");
+        }
+    }
 }
