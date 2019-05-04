@@ -49,4 +49,7 @@ public interface UserMapper {
 
     //获取用户列表
     List<User> getUserList();
+
+    //获取医生列表
+    List<Doctor> getDoctorList();
 }

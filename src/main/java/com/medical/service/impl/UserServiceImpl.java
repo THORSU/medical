@@ -83,4 +83,9 @@ public class UserServiceImpl implements IUserService {
     public List<User> getUserList() {
         return userMapper.getUserList();
     }
+
+    @Override
+    public List<Doctor> getDoctorList() {
+        return userMapper.getDoctorList();
+    }
 }

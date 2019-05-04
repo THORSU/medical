@@ -71,4 +71,8 @@
     <select id="getUserList" resultType="com.medical.pojo.User">
         select * from `user` where status = 1
     </select>
+
+    <select id="getDoctorList" resultType="com.medical.pojo.Doctor">
+        select * from `doctor` where status = 1
+    </select>
 </mapper>

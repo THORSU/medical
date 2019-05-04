@@ -1,6 +1,7 @@
 package com.medical.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.medical.pojo.Doctor;
 import com.medical.pojo.Note;
 import com.medical.pojo.User;
 import com.medical.service.INoteService;
@@ -40,6 +41,21 @@ public class ManagerController {
     Object getUserList(HttpServletRequest request, HttpServletResponse response) {
         List<User> users = userService.getUserList();
         return JSON.toJSONString(users);
+    }
+
+    /**
+     * 获取医生列表
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/getDoctorList.from", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    public
+    @ResponseBody
+    Object getDoctorList(HttpServletRequest request, HttpServletResponse response) {
+        List<Doctor> doctors = userService.getDoctorList();
+        return JSON.toJSONString(doctors);
     }
 
     /**
