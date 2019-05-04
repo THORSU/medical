@@ -46,7 +46,7 @@ public class LoginController {
         String mobile = request.getParameter("mobile").trim();
         if (!StringUtils.isEmpty(userService.getUser(username))) {
             return JSON.toJSONString("have SignUp");
-        }
+        }//判断此用户有没有被注册
         if (!password1.equals(password)) {
             return JSON.toJSONString("password error");
         } else {
@@ -204,10 +204,10 @@ public class LoginController {
         String identify1 = request.getParameter("identify1").trim();
         if (!password.equals(password1)) {
             return JSON.toJSONString("password error");
-        }
+        }//确认两次输入密码一致
         if (identify1.equals("user")) {
             user.setName(username);
-            User res = userService.userLogin(user);
+            User res = userService.userLogin(user);//根据用户名查找用户
             if (res == null) {
                 return JSON.toJSONString("mobile or name error");
             }
@@ -215,7 +215,7 @@ public class LoginController {
                 return JSON.toJSONString("mobile or name error");
             }
             res.setPassword(password);
-            userService.updateInfo(res);
+            userService.updateInfo(res);//替换数据库密码
             return JSON.toJSONString("change success");
         } else if (identify1.equals("doctor")) {
             doctor.setName(username);
@@ -255,8 +255,8 @@ public class LoginController {
         Map<String, Object> map = new HashMap<String, Object>();
         if (null != file && !file.isEmpty()) {
             try {
+                //274行的函数
                 map = uploadFile(file);
-
 
             } catch (IOException e) {
             }
@@ -273,25 +273,25 @@ public class LoginController {
      */
     public static Map<String, Object> uploadFile(MultipartFile file)
             throws IOException, Exception {
-        String filePath = "D:\\idea\\upload\\";
+        String filePath = "D:\\idea\\upload\\";//上传路径
         Map<String, Object> map = new HashMap<String, Object>();
-        String fileName = file.getOriginalFilename();
+        String fileName = file.getOriginalFilename();//获取图片名称
         fileName = new String(fileName.getBytes("ISO-8859-1"), "UTF-8");
-        File tempFile = new File(filePath, System.currentTimeMillis() + fileName);
+        File tempFile = new File(filePath, System.currentTimeMillis() + fileName);//生成的新图片名称
 
         try {
             if (!tempFile.getParentFile().exists()) {
                 tempFile.getParentFile().mkdirs();//如果是多级文件使用mkdirs();如果就一层级的话，可以使用mkdir()
             }
             if (!tempFile.exists()) {
-                boolean blag = tempFile.createNewFile();
+                boolean blag = tempFile.createNewFile();//新建图片
                 System.out.println(blag);
             }
-            file.transferTo(tempFile);
+            file.transferTo(tempFile);//粘贴
         } catch (IllegalStateException e) {
         }
 
-        map.put("data", filePath + System.currentTimeMillis() + tempFile.getName());
+        map.put("data", filePath + System.currentTimeMillis() + tempFile.getName());//往前端返值
 
         return map;
     }

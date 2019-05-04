@@ -49,12 +49,14 @@
                                id="mobile">
                     </div>
                     <br>
+                    <!--图片上传-->
                     <div>
                        <span>
                             <input id="imageFile" name="fileselect[]" type="file" accept="image/*" multiple/>
 			            </span>
                     </div>
                     <br>
+
                     <div class="my_re_input my_code">
                         <label for="vcode"></label>
                         <input type="text" id="vcode" class="form-control" placeholder="请输入验证码"
@@ -209,7 +211,7 @@
         }
     }
 
-
+// 图片上传的函数
     function pushImg(obj) {
         var url = "/medical/login/upload/"; //访问控制器是upload，后面必须加'/'否则会报错"org.apache.catalina.connector.RequestFacade cannot be cast to org.springframework.web.multipart.Mult...",但是如果是多级的URL【例如XX/XXX/00/upload/0】又没问题了.
         var param = $("#errorParameter").val();
