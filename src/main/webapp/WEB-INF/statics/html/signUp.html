@@ -129,7 +129,7 @@
     }
 
     function SignUp() {
-        pushImg()
+
         var username = $("#username").val();
         var password = $("#password").val();
         var password1 = $("#password1").val();
@@ -172,6 +172,7 @@
                         }
                     })
                 } else if (identify == "医生注册") {
+                    pushImg()
                     $.ajax({
                         type: "post",
                         url: "/medical/login/doctorSignUp.form?",
